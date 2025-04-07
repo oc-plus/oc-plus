@@ -1,0 +1,22 @@
+<?php
+// En-tête
+$_['heading_title']          = 'Paramètres Développeur';
+
+// Texte
+$_['text_developer_success'] = 'Succès: Vous avez modifié les paramètres développeur!';
+$_['text_cache_success']     = 'Succès: Vous avez vidé le cache!';
+$_['text_theme_success']     = 'Succès: Vous avez vidé le cache theme!';
+$_['text_sass_success']      = 'Succès: Vous avez vidé le cache SASS!';
+$_['text_theme']             = 'Thème';
+$_['text_sass']              = 'SASS';
+$_['text_cache']             = 'Cache';
+
+// Colonne
+$_['column_component']       = 'Composant';
+$_['column_action']          = 'Action';
+
+// Entrée
+$_['entry_cache']            = 'Cache';
+
+// Erreur
+$_['error_permission']       = 'Attention: Vous n\'avez pas la permission de modifier les paramètres développeur!';
