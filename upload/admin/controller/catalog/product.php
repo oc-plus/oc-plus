@@ -749,6 +749,12 @@ class Product extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!empty($product_info)) {
+			$data['date_added'] = date('Y-m-d', strtotime($product_info['date_added']));
+		} else {
+			$data['date_added'] = date('Y-m-d');
+		}
+
+		if (!empty($product_info)) {
 			$data['date_available'] = ($product_info['date_available'] != '0000-00-00') ? $product_info['date_available'] : '';
 		} else {
 			$data['date_available'] = date('Y-m-d');
@@ -1183,6 +1189,7 @@ class Product extends \Opencart\System\Engine\Controller {
 			'minimum'             => 0,
 			'subtract'            => 0,
 			'stock_status_id'     => 0,
+			'date_added'          => '',
 			'date_available'      => '',
 			'manufacturer_id'     => 0,
 			'shipping'            => 0,
