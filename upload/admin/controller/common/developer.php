@@ -55,7 +55,7 @@ class Developer extends \Opencart\System\Engine\Controller {
 	 *
 	 * @return void
 	 */
-	public function cache(): void {
+	public function systemcache(): void {
 		$this->load->language('common/developer');
 
 		$json = [];
@@ -65,17 +65,8 @@ class Developer extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			$files = glob(DIR_CACHE . 'cache.*');
-
-			if ($files) {
-				foreach ($files as $file) {
-					if (is_file($file)) {
-						unlink($file);
-					}
-				}
-			}
-
-			$json['success'] = $this->language->get('text_cache_success');
+			$this->cleanDirectory(DIR_CACHE);
+			$json['success'] = $this->language->get('text_systemcache_success');
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
@@ -87,7 +78,7 @@ class Developer extends \Opencart\System\Engine\Controller {
 	 *
 	 * @return void
 	 */
-	public function theme(): void {
+	public function imagecache(): void {
 		$this->load->language('common/developer');
 
 		$json = [];
@@ -97,25 +88,8 @@ class Developer extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			$directories = glob(DIR_CACHE . 'template/*', GLOB_ONLYDIR);
-
-			if ($directories) {
-				foreach ($directories as $directory) {
-					$files = glob($directory . '/*');
-
-					foreach ($files as $file) {
-						if (is_file($file)) {
-							unlink($file);
-						}
-					}
-
-					if (is_dir($directory)) {
-						rmdir($directory);
-					}
-				}
-			}
-
-			$json['success'] = $this->language->get('text_theme_success');
+			$this->cleanDirectory(DIR_IMAGE . 'cache');
+			$json['success'] = $this->language->get('text_imagecache_success');
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
@@ -244,7 +218,7 @@ class Developer extends \Opencart\System\Engine\Controller {
 								$next = array_shift($directories);
 
 								if (is_dir($next)) {
-									foreach (glob(trim($next, '/') . '/{*,.[!.]*,..?*}', GLOB_BRACE) as $file) {
+									foreach (oc_glob(trim($next, '/') . '/{*,.[!.]*,..?*}') as $file) {
 										if (is_dir($file)) {
 											$directories[] = $file . '/';
 										}
@@ -288,5 +262,37 @@ class Developer extends \Opencart\System\Engine\Controller {
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
+	}
+
+	private function cleanDirectory(string $dir): bool {
+		if (!is_dir($dir)) {
+			return false;
+		}
+
+		$dir = rtrim($dir, '/\\') . DIRECTORY_SEPARATOR;
+		$indexHtmlPath = $dir . 'index.html';
+
+		$iterator = new \RecursiveIteratorIterator(
+			new \RecursiveDirectoryIterator($dir, \RecursiveDirectoryIterator::SKIP_DOTS),
+			\RecursiveIteratorIterator::CHILD_FIRST
+		);
+
+		foreach ($iterator as $file) {
+			/** @var \SplFileInfo $file */
+			$pathname = $file->getPathname();
+
+			// Пропускаем index.html только в корневой папке
+			if ($pathname === $indexHtmlPath) {
+				continue;
+			}
+
+			if ($file->isDir()) {
+				@rmdir($pathname);
+			} else {
+				@unlink($pathname);
+			}
+		}
+
+		return true;
 	}
 }

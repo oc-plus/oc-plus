@@ -21,21 +21,21 @@ class Language extends \Opencart\System\Engine\Controller {
 		$this->load->model('localisation/language');
 		$results = $this->model_localisation_language->getLanguages();
 
-        $data['languages'] = [];
-        $code = $this->config->get('config_language');
-        $requestLng = $this->request->get['language'] ?? '';
+		$data['languages'] = [];
+		$code = $this->config->get('config_language');
+		$requestLng = $this->request->get['language'] ?? '';
 
 		foreach ($results as $result) {
-            $data['languages'][$result['code']] = $result;
+			$data['languages'][$result['code']] = $result;
 
-            if ($result['code'] == $requestLng) {
-                $code = $result['code'];
-            }
+			if ($result['code'] == $requestLng) {
+				$code = $result['code'];
+			}
 		}
 
 		$data['name'] = $data['languages'][$code]['name'];
 		$data['image'] = $data['languages'][$code]['image'];
-        $data['code'] = $code;
+		$data['code'] = $code;
 
 		// Build the url
 		$url_data = $this->request->get;
