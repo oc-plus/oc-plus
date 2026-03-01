@@ -1,0 +1,33 @@
+/.idea
+/.tools/.cache
+
+# Image cache files
+/upload/image/cache/*
+!/upload/image/cache/index.html
+
+# Storage files
+/upload/system/storage/backup/*
+!/upload/system/storage/backup/index.html
+/upload/system/storage/cache/*
+!/upload/system/storage/cache/index.html
+/upload/system/storage/download/*
+!/upload/system/storage/download/index.html
+!/upload/system/storage/download/linuxmint.zip.73534af7d03df29ac0158455c46e3d2a
+/upload/system/storage/logs/*
+!/upload/system/storage/logs/index.html
+/upload/system/storage/session/*
+!/upload/system/storage/session/index.html
+/upload/system/storage/upload/*
+!/upload/system/storage/upload/index.html
+
+# CSS Files
+/upload/admin/view/stylesheet/*.css
+/upload/catalog/view/stylesheet/*.css
+
+# Docker files
+/.docker/log/apache/*
+!/.docker/log/apache/.gitkeep
+/.docker/log/php/*
+!/.docker/log/php/.gitkeep
+/.docker/log/xdebug/*
+!/.docker/log/xdebug/.gitkeep

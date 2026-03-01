@@ -1,0 +1,30 @@
+* text=auto eol=lf
+
+.htaccess text eol=lf
+*.css     text eol=lf
+*.dist    text eol=lf
+*.html    text eol=lf
+*.ini     text eol=lf
+*.js      text eol=lf
+*.json    text eol=lf
+*.md      text eol=lf
+*.php     text eol=lf
+*.scss    text eol=lf
+*.svg     text eol=lf
+*.twig    text eol=lf
+*.txt     text eol=lf
+*.xml     text eol=lf
+*.yml     text eol=lf
+
+*.phar binary
+*.png binary
+*.jpg binary
+
+/.docker/           export-ignore
+/.github/           export-ignore
+/.tools/            export-ignore
+/.env               export-ignore
+/.gitattributes     export-ignore
+/.gitignore         export-ignore
+/docker-compose.yml export-ignore
+/Makefile           export-ignore
