@@ -293,7 +293,7 @@ class Cart extends \Opencart\System\Engine\Controller {
 
 			if ($product['subscription']) {
 				if ($product['subscription']['trial_status']) {
-					$subscription .= sprintf($this->language->get('text_subscription_trial'), $price_status ?? $product['subscription']['trial_price_text'], $product['subscription']['trial_cycle'], $product['subscription']['trial_frequency'], $product['subscription']['trial_duration']);
+					$subscription .= sprintf($this->language->get('text_subscription_trial'), ($price_status ? $product['subscription']['trial_price_text'] : ''), $product['subscription']['trial_cycle'], $product['subscription']['trial_frequency'], $product['subscription']['trial_duration']);
 				}
 
 				if ($product['subscription']['duration']) {

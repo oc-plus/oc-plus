@@ -1,8 +1,8 @@
 # OpenCart
 
-[![GitHub License](https://img.shields.io/github/license/oc-plus-plus/oc-plus-plus?color=green)](https://github.com/oc-plus-plus/oc-plus-plus/blob/main/LICENSE)
-[![coding standards](https://github.com/oc-plus-plus/oc-plus-plus/actions/workflows/coding-standards.yml/badge.svg)](https://github.com/oc-plus-plus/oc-plus-plus/actions/workflows/coding-standards.yml)
-[![static analysis](https://github.com/oc-plus-plus/oc-plus-plus/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/oc-plus-plus/oc-plus-plus/actions/workflows/static-analysis.yml)
+[![GitHub License](https://img.shields.io/github/license/oc-plus-plus/opencart?color=green)](https://github.com/oc-plus-plus/opencart/blob/main/LICENSE)
+[![coding standards](https://github.com/oc-plus-plus/opencart/actions/workflows/coding-standards.yml/badge.svg)](https://github.com/oc-plus-plus/opencart/actions/workflows/coding-standards.yml)
+[![static analysis](https://github.com/oc-plus-plus/opencart/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/oc-plus-plus/opencart/actions/workflows/static-analysis.yml)
 
 
 ## Contents

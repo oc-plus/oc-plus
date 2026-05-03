@@ -87,7 +87,7 @@ class Autoloader {
 
 		if (isset($files)) {
 			foreach ($files as $file) {
-				if (isset($file) && is_file($file)) {
+				if (is_file($file)) {
 					include_once($file);
 				}
 			}
