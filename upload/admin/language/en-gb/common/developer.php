@@ -11,7 +11,6 @@ $_['text_vendor_success']    = 'Success: You have cleared the vendor cache!';
 $_['text_imagecache']        = 'Image Cache';
 $_['text_sass']              = 'SASS';
 $_['text_systemcache']       = 'System Cache';
-$_['text_vendor']            = 'Vendor';
 
 // Column
 $_['column_component']       = 'Component';

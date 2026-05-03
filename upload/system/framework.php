@@ -5,10 +5,9 @@ $autoloader->register('Opencart\\' . APPLICATION, DIR_APPLICATION);
 $autoloader->register('Opencart\Extension', DIR_EXTENSION);
 $autoloader->register('Opencart\System', DIR_SYSTEM);
 
-//require_once(DIR_SYSTEM . 'helper/vendor.php');
-//oc_generate_vendor();
-
-require_once(DIR_SYSTEM . 'vendor.php');
+if (defined('DIR_STORAGE') && is_file(DIR_STORAGE . 'vendor/autoload.php')) {
+	require_once(DIR_STORAGE . 'vendor/autoload.php');
+}
 
 // Registry
 $registry = new \Opencart\System\Engine\Registry();
