@@ -34,8 +34,8 @@ class File {
 			$time = substr(strrchr($file, '.'), 1);
 
 			if ($time < time()) {
-				if (!@unlink($file)) {
-					clearstatcache(false, $file);
+				if (is_file($file)) {
+					@unlink($file);
 				}
 			} else {
 				return json_decode(file_get_contents($file), true);
