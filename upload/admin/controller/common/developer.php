@@ -111,16 +111,9 @@ class Developer extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			$cssFiles = array_merge(
-				glob(DIR_APPLICATION . 'view/stylesheet/*.css'),
-				glob(DIR_CATALOG . 'view/stylesheet/*.css')
-			);
-
-			foreach ($cssFiles as $file) {
-				if (is_file($file)) {
-					unlink($file);
-				}
-			}
+			// Cleans the *.css files of a specified directory
+			array_map('unlink', array_filter(glob(DIR_APPLICATION . 'view/stylesheet/*.css'), 'is_file'));
+			array_map('unlink', array_filter(glob(DIR_CATALOG . 'view/stylesheet/*.css'), 'is_file'));
 
 			$json['success'] = $this->language->get('text_sass_success');
 		}
