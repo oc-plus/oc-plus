@@ -151,8 +151,6 @@ class Image {
 			} elseif ($extension == 'webp') {
 				imagewebp($this->image, $file);
 			}
-
-			imagedestroy($this->image);
 		}
 	}
 
@@ -218,7 +216,6 @@ class Image {
 		imagefilledrectangle($this->image, 0, 0, $width, $height, $background);
 
 		imagecopyresampled($this->image, $image_old, $xpos, $ypos, 0, 0, $new_width, $new_height, $this->width, $this->height);
-		imagedestroy($image_old);
 
 		$this->width = $width;
 		$this->height = $height;
@@ -279,8 +276,6 @@ class Image {
 		imagealphablending($this->image, true);
 		imagesavealpha($this->image, true);
 		imagecopy($this->image, $watermark->getImage(), $watermark_pos_x, $watermark_pos_y, 0, 0, $watermark->getWidth(), $watermark->getHeight());
-
-		imagedestroy($watermark->getImage());
 	}
 
 	/**
@@ -298,7 +293,6 @@ class Image {
 		$this->image = imagecreatetruecolor($bottom_x - $top_x, $bottom_y - $top_y);
 
 		imagecopy($this->image, $image_old, 0, 0, $top_x, $top_y, $this->width, $this->height);
-		imagedestroy($image_old);
 
 		$this->width = $bottom_x - $top_x;
 		$this->height = $bottom_y - $top_y;
