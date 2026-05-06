@@ -285,6 +285,8 @@ class Marketing extends \Opencart\System\Engine\Controller {
 		$data['sort'] = $sort;
 		$data['order'] = $order;
 
+		$this->document->addScript('view/javascript/oc/filter.min.js');
+
 		return $this->load->view('marketing/marketing_list', $data);
 	}
 

@@ -66,7 +66,7 @@
                 </select>
               </div>
               <div class="text-end">
-                <button type="button" id="button-filter" class="btn btn-light"><i class="fa-solid fa-filter"></i> {{ button_filter }}</button>
+                <button type="submit" class="btn btn-light"><i class="fa-solid fa-filter"></i> {{ button_filter }}</button>
                 <button type="reset" data-bs-toggle="tooltip" title="{{ button_reset }}" class="btn btn-outline-secondary"><i class="fa-solid fa-filter-circle-xmark"></i></button>
               </div>
             </form>
@@ -76,176 +76,117 @@
       <div class="col-lg-9 col-md-12">
         <div class="card">
           <div class="card-header"><i class="fa-solid fa-list"></i> {{ text_list }}</div>
-          <div id="affiliate" class="card-body">{{ list }}</div>
+          <div id="list" class="card-body">{{ list }}</div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<script type="text/javascript"><!--
-$('#affiliate').on('click', 'thead a, .pagination a', function(e) {
+<script type="text/javascript">
+  ocFilter({
+    formId: '#form-filter',
+    listId: '#list',
+    route: 'marketing/affiliate',
+    userToken: '{{ user_token }}'
+  });
+
+  ocAutocomplete({
+    inputSelector: '#input-customer',
+    route: 'customer/customer.autocomplete',
+    userToken: '{{ user_token }}',
+    valueKey: 'customer_id',
+    labelKey: 'name',
+    onSelect: function (item) {
+      $('#input-customer').val(decodeHTMLEntities(item.label));
+    }
+  });
+
+  $('#list').on('click', 'thead a, .pagination a', function (e) {
     e.preventDefault();
+    $('#list').load(this.href);
+  });
 
-    $('#affiliate').load(this.href);
-});
-
-$('#button-filter').on('click', function() {
-    url = '';
-
-    var filter_customer = $('#input-customer').val();
-
-    if (filter_customer) {
-        url += '&filter_customer=' + encodeURIComponent(filter_customer);
-    }
-
-    var filter_tracking = $('#input-tracking').val();
-
-    if (filter_tracking) {
-        url += '&filter_tracking=' + encodeURIComponent(filter_tracking);
-    }
-
-    var filter_payment_method = $('#input-payment-method').val();
-
-    if (filter_payment_method) {
-        url += '&filter_payment_method=' + filter_payment_method;
-    }
-
-    var filter_commission = $('#input-commission').val();
-
-    if (filter_commission) {
-        url += '&filter_commission=' + filter_commission;
-    }
-
-    var filter_date_from = $('#input-date-from').val();
-
-    if (filter_date_from) {
-        url += '&filter_date_from=' + encodeURIComponent(filter_date_from);
-    }
-
-    var filter_date_to = $('#input-date-to').val();
-
-    if (filter_date_to) {
-        url += '&filter_date_to=' + encodeURIComponent(filter_date_to);
-    }
-
-    var filter_status = $('#input-status').val();
-
-    if (filter_status !== '') {
-        url += '&filter_status=' + filter_status;
-    }
-
-    var limit = $('#input-limit').val();
-
-    if (limit) {
-        url += '&limit=' + limit;
-    }
-
-    window.history.pushState({}, null, 'index.php?route=marketing/affiliate&user_token={{ user_token }}' + url);
-
-    $('#affiliate').load('index.php?route=marketing/affiliate.list&user_token={{ user_token }}' + url);
-});
-
-$('#input-customer').autocomplete({
-    'source': function(request, response) {
-        $.ajax({
-            url: 'index.php?route=customer/customer.autocomplete&user_token={{ user_token }}&filter_affiliate=1&filter_name=' + encodeURIComponent(request),
-            dataType: 'json',
-            success: function(json) {
-                response($.map(json, function(item) {
-                    return {
-                        label: item['name'],
-                        value: item['customer_id']
-                    }
-                }));
-            }
-        });
-    },
-    'select': function(item) {
-        $('#input-customer').val(decodeHTMLEntities(item['label']));
-    }
-});
-
-$('#button-calculate').on('click', function(e) {
+  $('#button-calculate').on('click', function (e) {
     e.preventDefault();
 
     var element = this;
 
     $.ajax({
-        url: 'index.php?route=marketing/affiliate.calculate&user_token={{ user_token }}',
-        dataType: 'json',
-        beforeSend: function() {
-            $(element).button('loading');
-        },
-        complete: function() {
-            $(element).button('reset');
-        },
-        success: function(json) {
-            console.log(json);
+      url: 'index.php?route=marketing/affiliate.calculate&user_token={{ user_token }}',
+      dataType: 'json',
+      beforeSend: function () {
+        $(element).button('loading');
+      },
+      complete: function () {
+        $(element).button('reset');
+      },
+      success: function (json) {
+        console.log(json);
 
-            if (json['error']) {
-                $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
-            }
-
-            if (json['success']) {
-                $('#alert').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
-
-                url = '';
-
-                var filter_customer = $('#input-customer').val();
-
-                if (filter_customer) {
-                    url += '&filter_customer=' + encodeURIComponent(filter_customer);
-                }
-
-                var filter_tracking = $('#input-tracking').val();
-
-                if (filter_tracking) {
-                    url += '&filter_tracking=' + encodeURIComponent(filter_tracking);
-                }
-
-                var filter_payment_method = $('#input-payment-method').val();
-
-                if (filter_payment_method) {
-                    url += '&filter_payment_method=' + filter_payment_method;
-                }
-
-                var filter_commission = $('#input-commission').val();
-
-                if (filter_commission) {
-                    url += '&filter_commission=' + filter_commission;
-                }
-
-                var filter_date_from = $('#input-date-from').val();
-
-                if (filter_date_from) {
-                    url += '&filter_date_from=' + encodeURIComponent(filter_date_from);
-                }
-
-                var filter_date_to = $('#input-date-to').val();
-
-                if (filter_date_to) {
-                    url += '&filter_date_to=' + encodeURIComponent(filter_date_to);
-                }
-
-                var filter_status = $('#input-status').val();
-
-                if (filter_status !== '') {
-                    url += '&filter_status=' + filter_status;
-                }
-
-                var limit = $('#input-limit').val();
-
-                if (limit) {
-                    url += '&limit=' + limit;
-                }
-
-                $('#affiliate').load('index.php?route=marketing/affiliate.list&user_token={{ user_token }}' + url);
-            }
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        if (json['error']) {
+          $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
         }
+
+        if (json['success']) {
+          $('#alert').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+
+          url = '';
+
+          var filter_customer = $('#input-customer').val();
+
+          if (filter_customer) {
+            url += '&filter_customer=' + encodeURIComponent(filter_customer);
+          }
+
+          var filter_tracking = $('#input-tracking').val();
+
+          if (filter_tracking) {
+            url += '&filter_tracking=' + encodeURIComponent(filter_tracking);
+          }
+
+          var filter_payment_method = $('#input-payment-method').val();
+
+          if (filter_payment_method) {
+            url += '&filter_payment_method=' + filter_payment_method;
+          }
+
+          var filter_commission = $('#input-commission').val();
+
+          if (filter_commission) {
+            url += '&filter_commission=' + filter_commission;
+          }
+
+          var filter_date_from = $('#input-date-from').val();
+
+          if (filter_date_from) {
+            url += '&filter_date_from=' + encodeURIComponent(filter_date_from);
+          }
+
+          var filter_date_to = $('#input-date-to').val();
+
+          if (filter_date_to) {
+            url += '&filter_date_to=' + encodeURIComponent(filter_date_to);
+          }
+
+          var filter_status = $('#input-status').val();
+
+          if (filter_status !== '') {
+            url += '&filter_status=' + filter_status;
+          }
+
+          var limit = $('#input-limit').val();
+
+          if (limit) {
+            url += '&limit=' + limit;
+          }
+
+          $('#list').load('index.php?route=marketing/affiliate.list&user_token={{ user_token }}' + url);
+        }
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+      }
     });
-});
-//--></script>
+  });
+</script>
 {{ footer }}

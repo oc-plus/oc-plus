@@ -73,7 +73,7 @@
                 </select>
               </div>
               <div class="text-end">
-                <button type="button" id="button-filter" class="btn btn-light"><i class="fa-solid fa-filter"></i> {{ button_filter }}</button>
+                <button type="submit" class="btn btn-light"><i class="fa-solid fa-filter"></i> {{ button_filter }}</button>
                 <button type="reset" data-bs-toggle="tooltip" title="{{ button_reset }}" class="btn btn-outline-secondary"><i class="fa-solid fa-filter-circle-xmark"></i></button>
               </div>
             </form>
@@ -89,175 +89,63 @@
     </div>
   </div>
 </div>
-<script type="text/javascript"><!--
-$('#product').on('click', 'thead a, .pagination a', function(e) {
+<script type="text/javascript">
+  ocFilter({
+    formId: '#form-filter',
+    listId: '#product',
+    route: 'catalog/product',
+    userToken: '{{ user_token }}'
+  });
+
+  ocAutocomplete({
+    inputSelector: '#input-name',
+    route: 'catalog/product.autocomplete',
+    userToken: '{{ user_token }}',
+    valueKey: 'product_id',
+    labelKey: 'name',
+    onSelect: function (item) {
+      $('#input-name').val(decodeHTMLEntities(item.label));
+    }
+  });
+
+  ocAutocomplete({
+    inputSelector: '#input-model',
+    route: 'catalog/product.autocomplete',
+    userToken: '{{ user_token }}',
+    valueKey: 'product_id',
+    labelKey: 'model',
+    onSelect: function (item) {
+      $('#input-model').val(decodeHTMLEntities(item.label));
+    }
+  });
+
+  ocAutocomplete({
+    inputSelector: '#input-category',
+    route: 'catalog/category.autocomplete',
+    userToken: '{{ user_token }}',
+    valueKey: 'category_id',
+    labelKey: 'name',
+    onSelect: function (item) {
+      $('#input-category').val(decodeHTMLEntities(item.label));
+      $('#input-category-id').val(item.value);
+    }
+  });
+
+  ocAutocomplete({
+    inputSelector: '#input-manufacturer',
+    route: 'catalog/manufacturer.autocomplete',
+    userToken: '{{ user_token }}',
+    valueKey: 'manufacturer_id',
+    labelKey: 'name',
+    onSelect: function (item) {
+      $('#input-manufacturer').val(decodeHTMLEntities(item.label));
+      $('#input-manufacturer-id').val(item.value);
+    }
+  });
+
+  $('#product').on('click', 'thead a, .pagination a', function (e) {
     e.preventDefault();
-
     $('#product').load(this.href);
-});
-
-$('#button-filter').on('click', function() {
-    var url = '';
-
-    var filter_name = $('#input-name').val();
-
-    if (filter_name) {
-        url += '&filter_name=' + encodeURIComponent(filter_name);
-    }
-
-    var filter_model = $('#input-model').val();
-
-    if (filter_model) {
-        url += '&filter_model=' + encodeURIComponent(filter_model);
-    }
-
-    var filter_category_id = $('#input-category-id').val();
-
-    if (filter_category_id) {
-        url += '&filter_category_id=' + filter_category_id;
-	}
-
-    var filter_manufacturer_id = $('#input-manufacturer-id').val();
-
-    if (filter_manufacturer_id) {
-        url += '&filter_manufacturer_id=' + filter_manufacturer_id;
-    }
-
-    var filter_price_from = $('#input-price-from').val();
-
-    if (filter_price_from) {
-        url += '&filter_price_from=' + encodeURIComponent(filter_price_from);
-    }
-
-    var filter_price_to = $('#input-price-to').val();
-
-    if (filter_price_to) {
-        url += '&filter_price_to=' + encodeURIComponent(filter_price_to);
-    }
-
-    var filter_quantity_from = $('#input-quantity-from').val();
-
-    if (filter_quantity_from) {
-        url += '&filter_quantity_from=' + filter_quantity_from;
-    }
-
-    var filter_quantity_to = $('#input-quantity-to').val();
-
-    if (filter_quantity_to) {
-        url += '&filter_quantity_to=' + filter_quantity_to;
-    }
-
-    var filter_status = $('#input-status').val();
-
-    if (filter_status !== '') {
-        url += '&filter_status=' + filter_status;
-    }
-
-    window.history.pushState({}, null, 'index.php?route=catalog/product&user_token={{ user_token }}' + url);
-
-    $('#product').load('index.php?route=catalog/product.list&user_token={{ user_token }}' + url);
-});
-
-$('#input-name').autocomplete({
-    'source': function(request, response) {
-        $.ajax({
-            url: 'index.php?route=catalog/product.autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
-            dataType: 'json',
-            success: function(json) {
-                response($.map(json, function(item) {
-                    return {
-                        label: item['name'],
-                        value: item['product_id']
-                    }
-                }));
-            }
-        });
-    },
-    'select': function(item) {
-        $('#input-name').val(decodeHTMLEntities(item['label']));
-    }
-});
-
-$('#input-model').autocomplete({
-    'source': function(request, response) {
-        $.ajax({
-            url: 'index.php?route=catalog/product.autocomplete&user_token={{ user_token }}&filter_model=' + encodeURIComponent(request),
-            dataType: 'json',
-            success: function(json) {
-                response($.map(json, function(item) {
-                    return {
-                        label: item['model'],
-                        value: item['product_id']
-                    }
-                }));
-            }
-        });
-    },
-    'select': function(item) {
-        $('#input-model').val(decodeHTMLEntities(item['label']));
-    }
-});
-
-$('#input-category').autocomplete({
-    'source': function(request, response) {
-        $.ajax({
-            url: 'index.php?route=catalog/category.autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
-            dataType: 'json',
-            success: function(json) {
-                json.unshift({
-                    name: '{{ text_none }}',
-                    category_id: '',
-                });
-
-                response($.map(json, function(item) {
-                    return {
-                        label: item['name'],
-                        value: item['category_id']
-                    }
-                }));
-            }
-        });
-    },
-    'select': function(item) {
-        if (item['value']) {
-            $('#input-category').val(decodeHTMLEntities(item['label']));
-            $('#input-category-id').val(item['value']);
-        } else {
-            $('#input-category').val('');
-            $('#input-category-id').val('');
-        }
-    }
-});
-
-$('#input-manufacturer').autocomplete({
-    'source': function(request, response) {
-        $.ajax({
-            url: 'index.php?route=catalog/manufacturer.autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
-            dataType: 'json',
-            success: function(json) {
-                json.unshift({
-                    name: '{{ text_none }}',
-                    category_id: '',
-                });
-
-                response($.map(json, function(item) {
-                    return {
-                        label: item['name'],
-                        value: item['manufacturer_id']
-                    }
-                }));
-            }
-        });
-    },
-    'select': function(item) {
-        if (item['value']) {
-            $('#input-manufacturer').val(decodeHTMLEntities(item['label']));
-            $('#input-manufacturer-id').val(item['value']);
-        } else {
-            $('#input-manufacturer').val('');
-            $('#input-manufacturer-id').val('');
-        }
-    }
-});
-//--></script>
+  });
+</script>
 {{ footer }}

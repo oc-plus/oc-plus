@@ -671,8 +671,10 @@ class Marketplace extends \Opencart\System\Engine\Controller {
 				$this->session->data['extension_download'][$extension_id] = [];
 			}
 
-			$this->document->addStyle('view/javascript/jquery/magnific/magnific-popup.css');
-			$this->document->addScript('view/javascript/jquery/magnific/jquery.magnific-popup.min.js');
+			$this->document->addStyle([
+				'view/javascript/jquery/magnific/magnific-popup.css',
+				'view/javascript/jquery/magnific/jquery.magnific-popup.min.js'
+			]);
 
 			$data['user_token'] = $this->session->data['user_token'];
 

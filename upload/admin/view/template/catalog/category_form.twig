@@ -134,7 +134,7 @@
               <div class="row mb-3">
                 <label for="input-sort-order" class="col-sm-2 col-form-label">{{ entry_sort_order }}</label>
                 <div class="col-sm-10">
-                  <input type="number" name="sort_order" value="{{ sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
+                  <input type="text" name="sort_order" value="{{ sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
                 </div>
               </div>
               <div class="row mb-3">
@@ -206,68 +206,43 @@
     </div>
   </div>
 </div>
-<script type="text/javascript"><!--
-$('textarea[data-oc-toggle=\'ckeditor\']').ckeditor({
+<script type="text/javascript">
+  $('textarea[data-oc-toggle=\'ckeditor\']').ckeditor({
     language: '{{ ckeditor }}'
-});
+  });
 
-$('#input-parent').autocomplete({
-    'source': function(request, response) {
-        $.ajax({
-            url: 'index.php?route=catalog/category.autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
-            dataType: 'json',
-            success: function(json) {
-                json.unshift({
-                    'category_id': '0',
-                    'name': '{{ text_none }}'
-                });
-
-                response($.map(json, function(item) {
-                    return {
-                        value: item['category_id'],
-                        label: item['name']
-                    }
-                }));
-            }
-        });
-    },
-    'select': function(item) {
-        $('#input-parent').val(decodeHTMLEntities(item['label']));
-        $('#input-parent-id').val(item['value']);
+  ocAutocomplete({
+    inputSelector: '#input-parent',
+    route: 'catalog/category.autocomplete',
+    userToken: '{{ user_token }}',
+    valueKey: 'category_id',
+    labelKey: 'name',
+    prependNone: '{{ text_none }}',
+    onSelect: function (item) {
+      $('#input-parent').val(decodeHTMLEntities(item.label));
+      $('#input-parent-id').val(item.value);
     }
-});
+  });
 
-$('#input-filter').autocomplete({
-    'source': function(request, response) {
-        $.ajax({
-            url: 'index.php?route=catalog/filter.autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
-            dataType: 'json',
-            success: function(json) {
-                response($.map(json, function(item) {
-                    return {
-                        label: item['name'],
-                        value: item['filter_id']
-                    }
-                }));
-            }
-        });
-    },
-    'select': function(item) {
-        $('#input-filter').val('');
-
-        $('#category-filter-' + item['value']).remove();
-
-        html = '<tr id="category-filter-' + item['value'] + '">';
-        html += '  <td>' + item['label'] + '<input type="hidden" name="category_filter[]" value="' + item['value'] + '"/></td>';
-        html += '  <td class="text-end"><button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-minus-circle"></i></button></td>';
-        html += '</tr>';
-
-        $('#category-filter tbody').append(html);
+  ocAutocomplete({
+    inputSelector: '#input-filter',
+    route: 'catalog/filter.autocomplete',
+    userToken: '{{ user_token }}',
+    valueKey: 'filter_id',
+    labelKey: 'name',
+    onSelect: function (item) {
+      $('#input-filter').val('');
+      $('#category-filter-' + item.value).remove();
+      var html = '<tr id="category-filter-' + item.value + '">';
+      html += '  <td>' + item.label + '<input type="hidden" name="category_filter[]" value="' + item.value + '"/></td>';
+      html += '  <td class="text-end"><button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-minus-circle"></i></button></td>';
+      html += '</tr>';
+      $('#category-filter tbody').append(html);
     }
-});
+  });
 
-$('#category-filter').on('click', '.btn', function() {
+  $('#category-filter').on('click', '.btn', function () {
     $(this).parent().parent().remove();
-});
-//--></script>
+  });
+</script>
 {{ footer }}

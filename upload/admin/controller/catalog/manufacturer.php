@@ -245,6 +245,11 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 		$data['sort'] = $sort;
 		$data['order'] = $order;
 
+		$this->document->addScript([
+			'view/javascript/oc/filter.min.js',
+			'view/javascript/oc/autocomplete.min.js'
+		]);
+
 		return $this->load->view('catalog/manufacturer_list', $data);
 	}
 

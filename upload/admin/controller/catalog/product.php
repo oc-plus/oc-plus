@@ -486,6 +486,11 @@ class Product extends \Opencart\System\Engine\Controller {
 		$data['sort'] = $sort;
 		$data['order'] = $order;
 
+		$this->document->addScript([
+			'view/javascript/oc/filter.min.js',
+			'view/javascript/oc/autocomplete.min.js'
+		]);
+
 		return $this->load->view('catalog/product_list', $data);
 	}
 
@@ -499,8 +504,11 @@ class Product extends \Opencart\System\Engine\Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$this->document->addScript('view/javascript/ckeditor/ckeditor.js');
-		$this->document->addScript('view/javascript/ckeditor/adapters/jquery.js');
+		$this->document->addScript([
+			'view/javascript/ckeditor/ckeditor.js',
+			'view/javascript/ckeditor/adapters/jquery.js',
+			'view/javascript/oc/autocomplete.min.js'
+		]);
 
 		$data['text_form'] = !isset($this->request->get['product_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 

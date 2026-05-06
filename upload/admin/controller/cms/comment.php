@@ -216,6 +216,11 @@ class Comment extends \Opencart\System\Engine\Controller {
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($comment_total) ? (($page - 1) * $this->config->get('config_pagination_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_pagination_admin')) > ($comment_total - $this->config->get('config_pagination_admin'))) ? $comment_total : ((($page - 1) * $this->config->get('config_pagination_admin')) + $this->config->get('config_pagination_admin')), $comment_total, ceil($comment_total / $this->config->get('config_pagination_admin')));
 
+		$this->document->addScript([
+			'view/javascript/oc/filter.min.js',
+			'view/javascript/oc/autocomplete.min.js'
+		]);
+
 		return $this->load->view('cms/comment_list', $data);
 	}
 
