@@ -57,7 +57,7 @@ class Transaction extends \Opencart\System\Engine\Model {
 	}
 
 	/**
-	 * Delete Transaction By Order ID
+	 * Delete Transactions By Order ID
 	 *
 	 * Delete customer transaction by order id record in the database.
 	 *
@@ -69,9 +69,9 @@ class Transaction extends \Opencart\System\Engine\Model {
 	 *
 	 * $this->load->model('account/transaction');
 	 *
-	 * $this->model_account_transaction->deleteTransactionByOrderId($order_id);
+	 * $this->model_account_transaction->deleteTransactionsByOrderId($order_id);
 	 */
-	public function deleteTransactionByOrderId(int $order_id): void {
+	public function deleteTransactionsByOrderId(int $order_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer_transaction` WHERE `order_id` = '" . (int)$order_id . "' AND `amount` < 0");
 	}
 
