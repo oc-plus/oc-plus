@@ -112,7 +112,7 @@ class User extends \Opencart\System\Engine\Controller {
 
 		$data['user_groups'] = $this->model_user_user_group->getUserGroups();
 
-		$data['filter_username'] = $filter_name;
+		$data['filter_username'] = $filter_username;
 		$data['filter_name'] = $filter_name;
 		$data['filter_email'] = $filter_email;
 		$data['filter_user_group_id'] = $filter_user_group_id;
@@ -518,12 +518,16 @@ class User extends \Opencart\System\Engine\Controller {
 		}
 
 		$required = [
-			'user_id'   => 0,
-			'username'  => '',
-			'firstname' => '',
-			'lastname'  => '',
-			'email'     => '',
-			'password'  => '',
+			'user_id'       => 0,
+			'user_group_id' => 0,
+			'username'      => '',
+			'firstname'     => '',
+			'lastname'      => '',
+			'email'         => '',
+			'image'         => '',
+			'password'      => '',
+			'confirm'       => '',
+			'status'        => 0
 		];
 
 		$post_info = $this->request->post + $required;

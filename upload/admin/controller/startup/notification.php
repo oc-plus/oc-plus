@@ -33,8 +33,9 @@ class Notification extends \Opencart\System\Engine\Controller {
 				$notification = [];
 			}
 
-			if (isset($notification['notification'])) {
+			if (isset($notification['notifications'])) {
 				$this->load->model('tool/notification');
+
 				foreach ($notification['notifications'] as $result) {
 					$notification_info = $this->model_tool_notification->addNotification($result['notification_id']);
 

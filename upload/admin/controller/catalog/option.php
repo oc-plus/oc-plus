@@ -206,6 +206,8 @@ class Option extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('catalog/option.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('catalog/option', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		$option_info = [];
+
 		if (isset($this->request->get['option_id'])) {
 			$this->load->model('catalog/option');
 

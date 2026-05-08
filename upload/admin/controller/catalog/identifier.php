@@ -146,6 +146,8 @@ class Identifier extends \Opencart\System\Engine\Controller {
 		$data['back'] = $this->url->link('catalog/identifier', 'user_token=' . $this->session->data['user_token'] . $url);
 
 		// Identifier
+		$identifier_info = [];
+
 		if (isset($this->request->get['identifier_id'])) {
 			$this->load->model('catalog/identifier');
 

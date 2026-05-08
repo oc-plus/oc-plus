@@ -149,7 +149,7 @@ class Store extends \Opencart\System\Engine\Controller {
 
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_settings'),
-			'href' => $this->url->link('setting/store.form', 'user_token=' . $this->session->data['user_token'] . (isset($this->request->post['store_id']) ? '&store_id=' . $this->request->get['store_id'] : '') . $url)
+			'href' => $this->url->link('setting/store.form', 'user_token=' . $this->session->data['user_token'] . (isset($this->request->get['store_id']) ? '&store_id=' . $this->request->get['store_id'] : '') . $url)
 		];
 
 		$data['save'] = $this->url->link('setting/store.save', 'user_token=' . $this->session->data['user_token']);
@@ -649,9 +649,11 @@ class Store extends \Opencart\System\Engine\Controller {
 			$json['error']['url'] = $this->language->get('error_url');
 		}
 
-		foreach ($this->request->post['config_description'] as $language_id => $value) {
-			if (!oc_validate_length($value['meta_title'], 1, 64)) {
-				$json['error']['meta_title_' . $language_id] = $this->language->get('error_meta_title');
+		if (isset($this->request->post['config_description'])) {
+			foreach ($this->request->post['config_description'] as $language_id => $value) {
+				if (!oc_validate_length($value['meta_title'], 1, 64)) {
+					$json['error']['meta_title_' . $language_id] = $this->language->get('error_meta_title');
+				}
 			}
 		}
 

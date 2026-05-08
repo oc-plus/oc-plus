@@ -211,6 +211,8 @@ class Information extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('catalog/information.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('catalog/information', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		$information_info = [];
+
 		if (isset($this->request->get['information_id'])) {
 			$this->load->model('catalog/information');
 

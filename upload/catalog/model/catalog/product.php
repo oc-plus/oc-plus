@@ -33,11 +33,10 @@ class Product extends \Opencart\System\Engine\Model {
 	 *
 	 * Edit product quantity record in the database.
 	 *
-	 * @param int                  $product_id primary key of the product record
-	 * @param int                  $quantity
-	 * @param array<string, mixed> $data       array of data
+	 * @param int $product_id primary key of the product record
+	 * @param int $quantity
 	 *
-	 * @return int
+	 * @return void
 	 *
 	 * @example
 	 *

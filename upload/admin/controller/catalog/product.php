@@ -978,6 +978,10 @@ class Product extends \Opencart\System\Engine\Controller {
 			$product_options = [];
 		}
 
+		$this->load->model('tool/image');
+
+		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', (int)$this->config->get('config_image_default_width'), (int)$this->config->get('config_image_default_height'));
+
 		$data['product_options'] = [];
 
 		foreach ($product_options as $product_option) {
@@ -1039,8 +1043,15 @@ class Product extends \Opencart\System\Engine\Controller {
 					$option_value_info = $this->model_catalog_option->getValue($product_option_value['option_value_id']);
 
 					if ($option_value_info) {
+						if ($option_value_info['image'] && is_file(DIR_IMAGE . html_entity_decode($option_value_info['image'], ENT_QUOTES, 'UTF-8'))) {
+							$image = $option_value_info['image'];
+						} else {
+							$image = 'no_image.png';
+						}
+
 						$product_option_value_data[] = [
 							'name'  => $option_value_info['name'],
+							'image' => $this->model_tool_image->resize($image, 50, 50),
 							'price' => (float)$product_option_value['price'] ? $product_option_value['price'] : false,
 						] + $product_option_value;
 					}
@@ -1090,10 +1101,6 @@ class Product extends \Opencart\System\Engine\Controller {
 		} else {
 			$data['image'] = '';
 		}
-
-		$this->load->model('tool/image');
-
-		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', (int)$this->config->get('config_image_default_width'), (int)$this->config->get('config_image_default_height'));
 
 		if ($data['image'] && is_file(DIR_IMAGE . html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'))) {
 			$data['thumb'] = $this->model_tool_image->resize($data['image'], (int)$this->config->get('config_image_default_width'), (int)$this->config->get('config_image_default_height'));
@@ -1378,7 +1385,7 @@ class Product extends \Opencart\System\Engine\Controller {
 			$this->load->model('catalog/product');
 
 			foreach ($selected as $product_id) {
-				$this->model_catalog_product->copyProduct($product_id);
+				$this->model_catalog_product->copyProduct((int)$product_id);
 			}
 
 			$json['success'] = $this->language->get('text_success');
@@ -1473,7 +1480,7 @@ class Product extends \Opencart\System\Engine\Controller {
 		$json = [];
 
 		if (isset($this->request->get['filter_name'])) {
-			$filter_name = '%' . $this->request->get['filter_name'] . '%';
+			$filter_name = $this->request->get['filter_name'];
 		} else {
 			$filter_name = '';
 		}

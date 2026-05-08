@@ -887,7 +887,7 @@ class Order extends \Opencart\System\Engine\Model {
 
 		$query = $this->db->query($sql);
 
-		return (int)$query->row['total'];
+		return (float)$query->row['total'];
 	}
 
 	/**

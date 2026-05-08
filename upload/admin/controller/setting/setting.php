@@ -505,9 +505,11 @@ class Setting extends \Opencart\System\Engine\Controller {
 			$json['error']['name'] = $this->language->get('error_name');
 		}
 
-		foreach ($this->request->post['config_description'] as $language_id => $value) {
-			if (!oc_validate_length($value['meta_title'], 1, 64)) {
-				$json['error']['meta_title_' . $language_id] = $this->language->get('error_meta_title');
+		if (isset($this->request->post['config_description'])) {
+			foreach ($this->request->post['config_description'] as $language_id => $value) {
+				if (!oc_validate_length($value['meta_title'], 1, 64)) {
+					$json['error']['meta_title_' . $language_id] = $this->language->get('error_meta_title');
+				}
 			}
 		}
 
@@ -592,11 +594,11 @@ class Setting extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$this->request->post['config_image_article_width'] || !$this->request->post['config_image_article_height']) {
-			$json['error']['image_article'] = $this->language->get('error_image_cart');
+			$json['error']['image_article'] = $this->language->get('error_image_article');
 		}
 
 		if (!$this->request->post['config_image_topic_width'] || !$this->request->post['config_image_topic_height']) {
-			$json['error']['image_topic'] = $this->language->get('error_image_cart');
+			$json['error']['image_topic'] = $this->language->get('error_image_topic');
 		}
 
 		if (!$this->request->post['config_image_compare_width'] || !$this->request->post['config_image_compare_height']) {
