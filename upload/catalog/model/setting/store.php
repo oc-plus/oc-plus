@@ -91,14 +91,6 @@ class Store extends \Opencart\System\Engine\Model {
 	 * @return \Opencart\System\Engine\Registry
 	 */
 	public function createStoreInstance(int $store_id = 0, string $language = '', string $session_id = ''): \Opencart\System\Engine\Registry {
-		// Autoloader
-
-		$autoloader = new \Opencart\System\Engine\Autoloader();
-		$autoloader->register('Opencart\Catalog', DIR_APPLICATION);
-		// Registry
-		$registry = new \Opencart\System\Engine\Registry();
-		$registry->set('autoloader', $autoloader);
-
 		// Registry
 		$registry = new \Opencart\System\Engine\Registry();
 		$registry->set('autoloader', $this->autoloader);
