@@ -71,12 +71,12 @@ class Api extends \Opencart\System\Engine\Controller {
 					$status = false;
 				}
 
-				$time = $this->request->get['time'];
+				$time = (int)$this->request->get['time'];
 
 				$time_start = time() - 450;
 				$time_end = time() + 450;
 
-				if ($time < $time_start && $time > $time_end) {
+				if ($time < $time_start || $time > $time_end) {
 					$status = false;
 				}
 			}
@@ -93,7 +93,7 @@ class Api extends \Opencart\System\Engine\Controller {
 				$string .= md5(http_build_query($this->request->post)) . "\n";
 				$string .= $time . "\n";
 
-				if (rawurldecode($this->request->get['signature']) != base64_encode(hash_hmac('sha1', $string, $api_info['key'], 1))) {
+				if (rawurldecode($this->request->get['signature']) != base64_encode(hash_hmac('sha1', $string, $api_info['key'], true))) {
 					$status = false;
 				}
 			}

@@ -95,12 +95,12 @@ class Register extends \Opencart\System\Engine\Controller {
 			$data['payment_custom_field'] = [];
 		}
 
-		// Country
+		// Countries
 		$this->load->model('localisation/country');
 
 		$data['countries'] = $this->model_localisation_country->getCountries();
 
-		// Zone
+		// Zones
 		$this->load->model('localisation/zone');
 
 		$data['payment_zones'] = $this->model_localisation_zone->getZonesByCountryId($data['payment_country_id']);
@@ -146,7 +146,7 @@ class Register extends \Opencart\System\Engine\Controller {
 			$data['shipping_custom_field'] = [];
 		}
 
-		// Zone
+		// Shipping Zones
 		$this->load->model('localisation/zone');
 
 		if ($data['payment_country_id'] == $data['shipping_country_id']) {
@@ -249,7 +249,7 @@ class Register extends \Opencart\System\Engine\Controller {
 			if ($post_info['customer_group_id']) {
 				$customer_group_id = (int)$post_info['customer_group_id'];
 			} else {
-				$customer_group_id = (int)$post_info('config_customer_group_id');
+				$customer_group_id = (int)$this->config->get('config_customer_group_id');
 			}
 
 			$this->load->model('account/customer_group');
@@ -329,10 +329,9 @@ class Register extends \Opencart\System\Engine\Controller {
 					$json['error']['payment_country'] = $this->language->get('error_country');
 				}
 
-				// Zones
+				// Total Zones
 				$this->load->model('localisation/zone');
 
-				// Total Zones
 				$zone_total = $this->model_localisation_zone->getTotalZonesByCountryId((int)$post_info['payment_country_id']);
 
 				if ($zone_total && !$post_info['payment_zone_id']) {

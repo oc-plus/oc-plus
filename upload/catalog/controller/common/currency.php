@@ -97,7 +97,7 @@ class Currency extends \Opencart\System\Engine\Controller {
 			$option = [
 				'expires'  => time() + 60 * 60 * 24 * 30,
 				'path'     => '/',
-				'SameSite' => 'Lax'
+				'samesite' => 'Lax'
 			];
 
 			setcookie('currency', $this->session->data['currency'], $option);

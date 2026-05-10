@@ -138,9 +138,9 @@ class Review extends \Opencart\System\Engine\Controller {
 		}
 
 		$required = [
-			'author',
-			'text',
-			'rating'
+			'author' => '',
+			'text'   => '',
+			'rating' => 0
 		];
 
 		$post_info = $this->request->post + $required;

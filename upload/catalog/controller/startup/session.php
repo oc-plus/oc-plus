@@ -63,9 +63,9 @@ class Session extends \Opencart\System\Engine\Controller {
 		$option = [
 			'expires'  => time() + (int)$this->config->get('config_session_expire'),
 			'path'     => $this->config->get('session_path'),
-			'secure'   => $this->request->server['HTTPS'],
-			'httponly' => false,
-			'SameSite' => $this->config->get('session_samesite')
+			'secure'   => !empty($this->request->server['HTTPS']),
+			'httponly' => true,
+			'samesite' => $this->config->get('session_samesite') ?: 'Lax'
 		];
 
 		$this->response->addHeader('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');

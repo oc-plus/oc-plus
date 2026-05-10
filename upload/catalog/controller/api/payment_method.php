@@ -1,5 +1,5 @@
 <?php
-namespace Opencart\catalog\controller\api;
+namespace Opencart\Catalog\Controller\Api;
 /**
  * Class Payment Method
  *
@@ -19,11 +19,19 @@ class PaymentMethod extends \Opencart\System\Engine\Controller {
 		$output = [];
 
 		$required = [
-			'name' => '',
-			'code' => ''
+			'payment_method' => [
+				'name' => '',
+				'code' => ''
+			]
 		];
 
 		$post_info = $this->request->post + $required;
+
+		if (!is_array($post_info['payment_method'])) {
+			$post_info['payment_method'] = $required['payment_method'];
+		} else {
+			$post_info['payment_method'] += $required['payment_method'];
+		}
 
 		// 1. Validate customer data exists
 		if (!isset($this->session->data['customer'])) {

@@ -23,12 +23,12 @@ class Language extends \Opencart\System\Engine\Controller {
 
 		$data['languages'] = [];
 		$code = $this->config->get('config_language');
-		$requestLng = $this->request->get['language'] ?? '';
+		$request_lng = $this->request->get['language'] ?? '';
 
 		foreach ($results as $result) {
 			$data['languages'][$result['code']] = $result;
 
-			if ($result['code'] == $requestLng) {
+			if ($result['code'] == $request_lng) {
 				$code = $result['code'];
 			}
 		}
@@ -99,7 +99,11 @@ class Language extends \Opencart\System\Engine\Controller {
 				// Build the url
 				$url_info = parse_url($redirect);
 
-				parse_str($url_info['query'], $query);
+				$query = [];
+
+				if (!empty($url_info['query'])) {
+					parse_str($url_info['query'], $query);
+				}
 
 				if (isset($query['route'])) {
 					$route = $query['route'];

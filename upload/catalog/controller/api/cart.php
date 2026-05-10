@@ -112,7 +112,7 @@ class Cart extends \Opencart\System\Engine\Controller {
 				}
 
 				// Minimum quantity
-				if ($this->request->get['call'] == 'confirm' && ($product_info['minimum'] > $product_total)) {
+				if (isset($this->request->get['call']) && $this->request->get['call'] == 'confirm' && ($product_info['minimum'] > $product_total)) {
 					$output['error']['product_' . (int)$key . '_product'] = sprintf($this->language->get('error_minimum'), $product_info['name'], $product_info['minimum']);
 				}
 
@@ -268,7 +268,7 @@ class Cart extends \Opencart\System\Engine\Controller {
 	/**
 	 * Get products
 	 *
-	 * @return array<string, mixed>
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getProducts(): array {
 		$this->load->language('api/cart');
@@ -279,13 +279,6 @@ class Cart extends \Opencart\System\Engine\Controller {
 		// Cart
 		$this->load->model('checkout/cart');
 
-		// Display prices
-		if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
-			$price_status = true;
-		} else {
-			$price_status = false;
-		}
-
 		$products = $this->model_checkout_cart->getProducts();
 
 		foreach ($products as $product) {
@@ -293,7 +286,7 @@ class Cart extends \Opencart\System\Engine\Controller {
 
 			if ($product['subscription']) {
 				if ($product['subscription']['trial_status']) {
-					$subscription .= sprintf($this->language->get('text_subscription_trial'), ($price_status ? $product['subscription']['trial_price_text'] : ''), $product['subscription']['trial_cycle'], $product['subscription']['trial_frequency'], $product['subscription']['trial_duration']);
+					$subscription .= sprintf($this->language->get('text_subscription_trial'), $product['subscription']['trial_price_text'], $product['subscription']['trial_cycle'], $product['subscription']['trial_frequency'], $product['subscription']['trial_duration']);
 				}
 
 				if ($product['subscription']['duration']) {
