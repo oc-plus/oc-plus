@@ -839,6 +839,11 @@ class Product extends \Opencart\System\Engine\Model {
 				}
 			}
 
+			// Codes
+			if (isset($override['product_code'])) {
+				$product_data['product_code'] = $this->model_catalog_product->getCodes($product['product_id']);
+			}
+
 			// Attributes
 			if (isset($override['product_attribute'])) {
 				$product_data['product_attribute'] = $this->model_catalog_product->getAttributes($product['product_id']);
@@ -2619,7 +2624,7 @@ class Product extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $product_id primary key of the product record
 	 *
-	 * @return array<int, string> seo url records that have product ID
+	 * @return array<int, array<int, string>> seo url records that have product ID
 	 *
 	 * @example
 	 *
