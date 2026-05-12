@@ -1205,8 +1205,6 @@ $('#form-customer').on('submit', function(e) {
             $('#button-customer').button('reset');
         },
         success: function(json) {
-            console.log(json);
-
             $('.alert-dismissible').remove();
             $('.is-invalid').removeClass('is-invalid');
             $('.invalid-feedback').removeClass('d-block');
@@ -1509,8 +1507,6 @@ $('#form-product-add').on('submit', function(e) {
             $('#button-product-add').button('reset');
         },
         success: function(json) {
-            console.log(json);
-
             $('.alert-dismissible').remove();
             $('.is-invalid').removeClass('is-invalid');
             $('.invalid-feedback').removeClass('d-block');
@@ -1619,8 +1615,6 @@ $('#form-payment-address').on('submit', function(e) {
             $('#button-payment-address').button('reset');
         },
         success: function(json) {
-            console.log(json);
-
             $('.alert-dismissible').remove();
             $('.is-invalid').removeClass('is-invalid');
             $('.invalid-feedback').removeClass('d-block');
@@ -1800,8 +1794,6 @@ $('#form-shipping-address').on('submit', function(e) {
             $('#button-shipping-address').button('reset');
         },
         success: function(json) {
-            console.log(json);
-
             $('#form-shipping-address .alert-dismissible').remove();
             $('#form-shipping-address .is-invalid').removeClass('is-invalid');
             $('#form-shipping-address .invalid-feedback').removeClass('d-block');
@@ -1930,8 +1922,6 @@ $('#button-shipping-methods').on('click', function() {
             $(element).button('reset');
         },
         success: function(json) {
-            console.log(json);
-
             $('.alert-dismissible').remove();
             $('.is-invalid').removeClass('is-invalid');
             $('.invalid-feedback').removeClass('d-block');
@@ -2022,8 +2012,6 @@ $('#form-shipping-method').on('submit', function(e) {
             $('#button-shipping-method').button('reset');
         },
         success: function(json) {
-            console.log(json);
-
             $('.alert-dismissible').remove();
             $('.is-invalid').removeClass('is-invalid');
             $('.invalid-feedback').removeClass('d-block');
@@ -2161,8 +2149,6 @@ $('#form-payment-method').on('submit', function(e) {
             $('#button-payment-method').button('reset');
         },
         success: function(json) {
-            console.log(json);
-
             $('.alert-dismissible').remove();
 
             if (typeof json['error'] == 'string') {
@@ -2214,8 +2200,6 @@ $('#button-refresh').on('click', function() {
             $('#button-refresh').button('reset');
         },
         success: function(json) {
-            console.log(json);
-
             if (json['error']) {
                 if (typeof json['error'] == 'string') {
                     $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
@@ -2240,8 +2224,6 @@ $('#button-refresh').on('click', function() {
 $('#button-confirm').on('click', function() {
     var element = this;
 
-    console.log($('#form-customer, #form-cart, #form-shipping-address, #form-shipping-method, #form-payment-address, #form-payment-method, #collapse-order form, #form-comment, #input-order-id').serialize());
-
     $.ajax({
         url: 'index.php?route=sale/order.call&user_token={{ user_token }}&call=confirm&store_id=' + $('#input-store').val() + '&language=' + $('#input-language').val() + '&currency=' + $('#input-currency').val(),
         type: 'post',
@@ -2255,8 +2237,6 @@ $('#button-confirm').on('click', function() {
             $(element).button('reset');
         },
         success: function(json) {
-            console.log(json);
-
             $('.alert-dismissible').remove();
             $('.is-invalid').removeClass('is-invalid');
             $('.invalid-feedback').removeClass('d-block');
