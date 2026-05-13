@@ -947,6 +947,12 @@ class Order extends \Opencart\System\Engine\Controller {
 			$data['shipping_custom_field'] = [];
 		}
 
+		if ($data['payment_country_id'] == $data['shipping_country_id']) {
+			$data['shipping_zones'] = $data['payment_zones'];
+		} else {
+			$data['shipping_zones'] = $this->model_localisation_zone->getZonesByCountryId($data['shipping_country_id']);
+		}
+
 		// Shipping Method
 		if (!empty($order_info['shipping_method'])) {
 			$data['shipping_method_name'] = $order_info['shipping_method']['name'];
@@ -1173,17 +1179,19 @@ class Order extends \Opencart\System\Engine\Controller {
 	 * $curl = curl_init();
 	 *
 	 * curl_setopt($curl, CURLOPT_URL, 'https://' . $domain . $path . 'index.php?route=api/api' . $url);
-	 * curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+	 * curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	 * curl_setopt($curl, CURLOPT_HEADER, false);
-	 * curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+	 * curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 	 * curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 30);
 	 * curl_setopt($curl, CURLOPT_TIMEOUT, 30);
-	 * curl_setopt($curl, CURLOPT_POST, 1);
+	 * curl_setopt($curl, CURLOPT_POST, true);
 	 * curl_setopt($curl, CURLOPT_POSTFIELDS, $_POST);
 	 *
 	 * $response = curl_exec($curl);
 	 *
 	 * $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+	 *
+	 * unset($curl);
 	 *
 	 * if ($status == 200) {
 	 *      $response_info = json_decode($response, true);
@@ -1251,8 +1259,14 @@ class Order extends \Opencart\System\Engine\Controller {
 
 			$store->request->get['route'] = 'api/order';
 
-			// 4. Add the request POST var
+			// 4. Add the request POST var, with added preserved order_status_id for confirm
 			$store->request->post = $this->request->post;
+			if ($call == 'confirm') {
+				$order_id = isset($this->request->post['order_id']) ? (int)$this->request->post['order_id'] : 0;
+				$this->load->model('sale/order');
+				$order_info = $this->model_sale_order->getOrder($order_id);
+				$store->request->post['order_status_id'] = $order_info['order_status_id'] ?? $this->config->get('config_order_status_id');
+			}
 
 			// 5. Call the required API controller.
 			$store->load->controller($store->request->get['route']);
