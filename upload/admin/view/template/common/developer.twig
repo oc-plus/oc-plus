@@ -41,12 +41,12 @@
     </div>
   </div>
 </div>
-<script type="text/javascript"><!--
+<script type="text/javascript">
 $('input[name=\'developer_sass\']').on('change', function() {
     $.ajax({
         url: 'index.php?route=common/developer.edit&user_token={{ user_token }}',
         type: 'post',
-        data: $('input[name=\'developer_sass\']:checked'),
+        data: $('input[name=\'developer_sass\']:checked').serialize(),
         dataType: 'json',
         beforeSend: function() {
             $('input[name=\'developer_sass\']').prop('disabled', true);
@@ -99,4 +99,4 @@ $('#modal-developer table button').on('click', function() {
         }
     });
 });
-//--></script>
+</script>
