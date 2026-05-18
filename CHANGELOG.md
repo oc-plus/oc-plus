@@ -140,7 +140,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 - **Green Build** - Fixed various static analysis errors and comments
 
 ### Security
-- Nothing
+- [#15445](https://github.com/opencart/opencart/pull/15445) - Prevent XSS in error log view
 
 
 ## Soure Code
