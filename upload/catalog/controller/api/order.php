@@ -383,8 +383,8 @@ class Order extends \Opencart\System\Engine\Controller {
 			$output['error']['product'] = $this->language->get('error_product');
 		}
 
-		// 3. Validate cart has products and has stock
-		if ((!$this->cart->hasStock() && !$this->config->get('config_stock_checkout')) || !$this->cart->hasMinimum()) {
+		// 3. Validate cart has sufficient minimum stock where required
+		if (!$this->cart->hasMinimum()) {
 			$output['error']['product'] = $this->language->get('error_stock');
 		}
 
