@@ -1,6 +1,6 @@
 {
-  "name": "opencart/opencart",
-  "description": "OpenCart",
+  "name": "batumibiz/opencart-lts",
+  "description": "OpenCart 4 LTS",
   "type": "project",
   "keywords": [
     "opencart",
@@ -8,16 +8,7 @@
     "framework",
     "opensource"
   ],
-  "homepage": "https://www.opencart.com/",
   "license": "GPL-3.0-or-later",
-  "support": {
-    "email": "support@opencart.com",
-    "issues": "https://github.com/opencart/opencart/issues",
-    "forum": "https://forum.opencart.com/",
-    "wiki": "https://github.com/opencart/opencart/wiki",
-    "source": "https://github.com/opencart/opencart/releases",
-    "docs": "http://docs.opencart.com/"
-  },
   "config": {
     "optimize-autoloader": true,
     "vendor-dir": "upload/system/storage/vendor/",
@@ -29,7 +20,7 @@
     "php": ">=8.1",
     "ext-curl": "*",
     "scssphp/scssphp": "^2.1",
-    "twig/twig": "^3.25"
+    "twig/twig": "^3.27"
   },
   "autoload-dev": {
     "psr-4": {
