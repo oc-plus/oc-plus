@@ -68,11 +68,11 @@
                 <div class="row mb-3">
                   <label for="input-logo" class="col-sm-2 col-form-label">{{ entry_logo }}</label>
                   <div class="col-sm-10">
-                    <div class="p-2 border rounded d-inline-block" style="min-width: 150px; max-width: 200px;">
+                    <div class="border rounded d-block" style="max-width: 300px;">
                       <img src="{{ logo }}" alt="" title="" id="thumb-logo" data-oc-placeholder="{{ placeholder }}" class="img-fluid"/> <input type="hidden" name="config_logo" value="{{ config_logo }}" id="input-logo"/>
-                      <div class="mt-2 input-group justify-content-center">
-                        <button type="button" data-oc-toggle="image" data-oc-target="#input-logo" data-oc-thumb="#thumb-logo" class="btn btn-primary btn-sm"><i class="fa-solid fa-pencil"></i> {{ button_edit }}</button>
-                        <button type="button" data-oc-toggle="clear" data-oc-target="#input-logo" data-oc-thumb="#thumb-logo" class="btn btn-warning btn-sm"><i class="fa-regular fa-trash-can"></i> {{ button_clear }}</button>
+                      <div class="d-grid">
+                        <button type="button" data-oc-toggle="image" data-oc-target="#input-logo" data-oc-thumb="#thumb-logo" class="btn btn-primary rounded-0"><i class="fa-solid fa-pencil"></i> {{ button_edit }}</button>
+                        <button type="button" data-oc-toggle="clear" data-oc-target="#input-logo" data-oc-thumb="#thumb-logo" class="btn btn-warning rounded-0"><i class="fa-regular fa-trash-can"></i> {{ button_clear }}</button>
                       </div>
                     </div>
                   </div>
@@ -80,11 +80,11 @@
                 <div class="row mb-3">
                   <label for="input-icon" class="col-sm-2 col-form-label">{{ entry_icon }}</label>
                   <div class="col-sm-10">
-                    <div class="p-2 border rounded d-inline-block" style="min-width: 150px; max-width: 200px;">
+                    <div class="border rounded d-block" style="max-width: 300px;">
                       <img src="{{ icon }}" alt="" title="" id="thumb-icon" data-oc-placeholder="{{ placeholder }}" class="img-fluid"/> <input type="hidden" name="config_icon" value="{{ config_icon }}" id="input-icon"/>
-                      <div class="mt-2 input-group justify-content-center">
-                        <button type="button" data-oc-toggle="image" data-oc-target="#input-icon" data-oc-thumb="#thumb-icon" class="btn btn-primary btn-sm"><i class="fa-solid fa-pencil"></i> {{ button_edit }}</button>
-                        <button type="button" data-oc-toggle="clear" data-oc-target="#input-icon" data-oc-thumb="#thumb-icon" class="btn btn-warning btn-sm"><i class="fa-regular fa-trash-can"></i> {{ button_clear }}</button>
+                      <div class="d-grid">
+                        <button type="button" data-oc-toggle="image" data-oc-target="#input-icon" data-oc-thumb="#thumb-icon" class="btn btn-primary rounded-0"><i class="fa-solid fa-pencil"></i> {{ button_edit }}</button>
+                        <button type="button" data-oc-toggle="clear" data-oc-target="#input-icon" data-oc-thumb="#thumb-icon" class="btn btn-warning rounded-0"><i class="fa-regular fa-trash-can"></i> {{ button_clear }}</button>
                       </div>
                     </div>
                     <div class="form-text">{{ help_icon }}</div>
@@ -288,6 +288,16 @@
                           <select name="config_product_search" id="input-product-search" class="form-select">
                             <option value="and"{% if config_product_search == 'and' %} selected{% endif %}>AND</option>
                             <option value="or"{% if config_product_search == 'or' %} selected{% endif %}>OR</option>
+                          </select>
+                          <div class="form-text">{{ help_product_search }}</div>
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label for="input-product-filters" class="col-sm-2 col-form-label">{{ entry_product_filters }}</label>
+                        <div class="col-sm-10">
+                          <select name="config_product_filters" id="input-product-filters" class="form-select">
+                            <option value="and"{% if config_product_filters == 'and' %} selected{% endif %}>AND</option>
+                            <option value="or"{% if config_product_filters == 'or' %} selected{% endif %}>OR</option>
                           </select>
                           <div class="form-text">{{ help_product_search }}</div>
                         </div>
