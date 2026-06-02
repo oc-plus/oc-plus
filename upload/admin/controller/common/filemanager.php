@@ -89,12 +89,15 @@ class FileManager extends \Opencart\System\Engine\Controller {
 			$page = 1;
 		}
 
-		$allowed = [];
-
-		foreach (explode("\r\n", $this->config->get('config_file_ext_allowed')) as $key => $extension) {
-			$allowed[] = '.' . \strtolower($extension);
-			$allowed[] = '.' . \strtoupper($extension);
-		}
+		$allowed = [
+			'ico',
+			'jpg',
+			'jpeg',
+			'png',
+			'gif',
+			'webp',
+			'svg'
+		];
 
 		$directories = [];
 		$files = [];
@@ -113,7 +116,9 @@ class FileManager extends \Opencart\System\Engine\Controller {
 				$directories[] = $path;
 			}
 
-			if (is_file($path) && in_array(substr($value, strrpos($value, '.')), $allowed)) {
+			$ext = strtolower(pathinfo($value, PATHINFO_EXTENSION));
+
+			if (is_file($path) && in_array($ext, $allowed)) {
 				$files[] = $path;
 			}
 		}
