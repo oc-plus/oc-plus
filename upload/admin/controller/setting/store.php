@@ -352,6 +352,18 @@ class Store extends \Opencart\System\Engine\Controller {
 			$data['config_product_count'] = 10;
 		}
 
+		if (isset($setting_info['config_product_search'])) {
+			$data['config_product_search'] = $setting_info['config_product_search'];
+		} else {
+			$data['config_product_search'] = 'and';
+		}
+
+		if (isset($setting_info['config_product_filters'])) {
+			$data['config_product_filters'] = $setting_info['config_product_filters'];
+		} else {
+			$data['config_product_filters'] = 'and';
+		}
+
 		if (isset($setting_info['config_cookie_id'])) {
 			$data['config_cookie_id'] = $setting_info['config_cookie_id'];
 		} else {

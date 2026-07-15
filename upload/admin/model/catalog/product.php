@@ -1038,7 +1038,22 @@ class Product extends \Opencart\System\Engine\Model {
 		}
 
 		if (!empty($data['filter_name'])) {
-			$sql .= " AND LCASE(`pd`.`name`) LIKE '%" . $this->db->escape(oc_strtolower($data['filter_name'])) . "%'";
+			$implode = [];
+
+			$words = explode(' ', trim(preg_replace('/\s+/', ' ', $data['filter_name'])));
+			$words = array_filter($words);
+
+			foreach ($words as $word) {
+				$implode[] = "LCASE(`pd`.`name`) LIKE '%" . $this->db->escape(oc_strtolower($word)) . "%'";
+			}
+
+			if ($implode) {
+				if ($this->config->get('config_product_search_admin') == 'and') {
+					$sql .= " AND (" . implode(" AND ", $implode) . ")";
+				} else {
+					$sql .= " AND (" . implode(" OR ", $implode) . ")";
+				}
+			}
 		}
 
 		if (!empty($data['filter_model'])) {
@@ -1165,7 +1180,22 @@ class Product extends \Opencart\System\Engine\Model {
 		}
 
 		if (!empty($data['filter_name'])) {
-			$sql .= " AND LCASE(`pd`.`name`) LIKE '" . $this->db->escape(oc_strtolower($data['filter_name']) . '%') . "'";
+			$implode = [];
+
+			$words = explode(' ', trim(preg_replace('/\s+/', ' ', $data['filter_name'])));
+			$words = array_filter($words);
+
+			foreach ($words as $word) {
+				$implode[] = "LCASE(`pd`.`name`) LIKE '%" . $this->db->escape(oc_strtolower($word)) . "%'";
+			}
+
+			if ($implode) {
+				if ($this->config->get('config_product_search_admin') == 'and') {
+					$sql .= " AND (" . implode(" AND ", $implode) . ")";
+				} else {
+					$sql .= " AND (" . implode(" OR ", $implode) . ")";
+				}
+			}
 		}
 
 		if (!empty($data['filter_model'])) {
