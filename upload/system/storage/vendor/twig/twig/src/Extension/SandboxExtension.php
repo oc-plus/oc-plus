@@ -86,11 +86,29 @@ final class SandboxExtension extends AbstractExtension
         return $this->policy;
     }
 
-    public function checkSecurity($tags, $filters, $functions, ?Source $source = null): void
+    public function checkSecurity($tags, $filters, $functions, $tests = [], $source = null): void
     {
-        if ($this->isSandboxed($source)) {
-            $this->policy->checkSecurity($tags, $filters, $functions);
+        // BC: previous signature was checkSecurity($tags, $filters, $functions, ?Source $source = null);
+        // detect a legacy call where the 4th positional argument was the Source.
+        if ($tests instanceof Source || (null === $tests && \func_num_args() < 5)) {
+            trigger_deprecation('twig/twig', '3.28', 'Passing a "Twig\Source" as the 4th argument of "%s()" is deprecated; pass an array of tests instead.', __METHOD__);
+            $source = $tests;
+            $tests = [];
         }
+
+        if (!$this->isSandboxed($source)) {
+            return;
+        }
+
+        if ((new \ReflectionMethod($this->policy, 'checkSecurity'))->getNumberOfParameters() >= 4) {
+            $this->policy->checkSecurity($tags, $filters, $functions, $tests);
+
+            return;
+        }
+
+        trigger_deprecation('twig/twig', '3.28', 'The "%s::checkSecurity()" method will take a 4th "array $tests" argument in 4.0; not declaring it is deprecated.', $this->policy::class);
+
+        $this->policy->checkSecurity($tags, $filters, $functions);
     }
 
     public function checkMethodAllowed($obj, $method, int $lineno = -1, ?Source $source = null): void
@@ -172,29 +190,29 @@ final class SandboxExtension extends AbstractExtension
             }
         }
 
-        // A Traversable would later be materialised (e.g. by filters such as `join`
-        // or `replace`) and its elements coerced to string by PHP itself, bypassing
-        // the policy. Materialise it now and recursively check the contents. This
-        // also applies to objects that implement both `Stringable` and `Traversable`:
-        // the `__toString` check above only validates the container's own coercion,
-        // not the elements yielded by `getIterator()`.
+        // Elements yielded by a Traversable may be string-coerced downstream
+        // (e.g. by `join`/`replace`), bypassing the policy. Check them now.
         if ($obj instanceof \Traversable) {
-            // Guard against self-referencing iterables (e.g. an IteratorAggregate
-            // whose getIterator() yields $this): without this check, materialising
-            // and recursing into the elements would overflow the stack. Mirrors
-            // the array-cycle guard in ensureToStringAllowedForArray().
             if (isset($seen[$obj])) {
                 return $obj;
             }
-
             $seen[$obj] = true;
+
+            // IteratorAggregate::getIterator() is idempotent, so we can walk
+            // the elements and return the original object: host code typed
+            // against a specific class (e.g. FormView) keeps working.
+            if ($obj instanceof \IteratorAggregate) {
+                foreach ($obj as $v) {
+                    $this->doEnsureToStringAllowed($v, $lineno, $source, $seen);
+                }
+
+                return $obj;
+            }
+
+            // Single-pass Iterator/Generator: materialise to validate.
             $array = iterator_to_array($obj);
             $this->ensureToStringAllowedForArray($array, $lineno, $source, $seen);
 
-            // Return the materialised array only when the object is not also
-            // Stringable, so that callers that rely on `__toString` (e.g. `{{ obj }}`)
-            // keep working. Plain consumers of iterables (join, replace, ...) call
-            // `iterator_to_array()` again, so the extra materialisation is benign.
             if (!$obj instanceof \Stringable) {
                 return $array;
             }
