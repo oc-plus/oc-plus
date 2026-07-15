@@ -1,4 +1,4 @@
-FROM alpine:3.23
+FROM alpine:3.24
 
 ARG USER_ID=1000
 ARG GROUP_ID=1000
