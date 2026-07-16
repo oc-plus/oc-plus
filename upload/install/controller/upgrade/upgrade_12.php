@@ -234,7 +234,7 @@ class Upgrade12 extends \Opencart\System\Engine\Controller {
 
 		if (!is_dir($dir)) {
 			$file = $dir;
-			if (strpos($file, $name) === false) {
+			if (!str_contains($file, $name)) {
 				return true;
 			}
 
@@ -254,7 +254,7 @@ class Upgrade12 extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		return (strpos($dir, $name) === false) ? true : @rmdir($dir);
+		return (!str_contains($dir, $name)) ? true : @rmdir($dir);
 	}
 
 	/**
@@ -276,7 +276,7 @@ class Upgrade12 extends \Opencart\System\Engine\Controller {
 		if (is_file(DIR_OPENCART . 'config.php') && filesize(DIR_OPENCART . 'config.php') > 0) {
 			$lines = file(DIR_OPENCART . 'config.php');
 			foreach ($lines as $line) {
-				if (strpos($line, "'DIR_STORAGE'") !== false) {
+				if (str_contains($line, "'DIR_STORAGE'")) {
 					$line = str_replace("'DIR_STORAGE'", "'CURRENT_DIR_STORAGE'", $line);
 					eval($line);
 					$current_dir_storage = CURRENT_DIR_STORAGE;
