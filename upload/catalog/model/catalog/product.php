@@ -72,7 +72,7 @@ class Product extends \Opencart\System\Engine\Model {
 			$product_data['variant'] = $query->row['variant'] ? json_decode($query->row['variant'], true) : [];
 			$product_data['override'] = $query->row['override'] ? json_decode($query->row['override'], true) : [];
 			$product_data['price'] = (float)($query->row['discount'] ?: $query->row['price']);
-			$product_data['rating'] = (int)$query->row['rating'];
+			$product_data['rating'] = (float)$query->row['rating'];
 			$product_data['reviews'] = (int)$query->row['reviews'] ? $query->row['reviews'] : 0;
 
 			return $product_data;
@@ -462,7 +462,7 @@ class Product extends \Opencart\System\Engine\Model {
 	 * $category_total = $this->model_catalog_product->getTotalCategoriesByCategoryId($product_id, $category_id);
 	 */
 	public function getTotalCategoriesByCategoryId(int $product_id, int $category_id): int {
-		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "product_to_category` WHERE `category_id` = '" . (int)$category_id . "'");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "product_to_category` WHERE `product_id` = '" . (int)$product_id . "' AND `category_id` = '" . (int)$category_id . "'");
 
 		return (int)$query->row['total'];
 	}

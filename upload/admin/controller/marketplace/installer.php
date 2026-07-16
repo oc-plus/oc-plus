@@ -224,6 +224,10 @@ class Installer extends \Opencart\System\Engine\Controller {
 
 		$json = [];
 
+		if (!$this->user->hasPermission('modify', 'marketplace/installer')) {
+			$json['error'] = $this->language->get('error_permission');
+		}
+
 		// 1. Validate the file uploaded.
 		if (isset($this->request->files['file']['name'])) {
 			$filename = basename($this->request->files['file']['name']);
@@ -421,6 +425,11 @@ class Installer extends \Opencart\System\Engine\Controller {
 					$source = $zip->getNameIndex($i);
 
 					$destination = str_replace('\\', '/', $source);
+
+					// Reject any entry that traverses outside the install directory
+					if (in_array('..', explode('/', $destination))) {
+						continue;
+					}
 
 					// Only extract the contents of the upload folder
 					$path = $extension_install_info['code'] . '/' . $destination;

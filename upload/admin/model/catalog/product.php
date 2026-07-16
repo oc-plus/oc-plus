@@ -130,6 +130,10 @@ class Product extends \Opencart\System\Engine\Model {
 		// Options
 		if (isset($data['product_option'])) {
 			foreach ($data['product_option'] as $product_option) {
+				if ((in_array($product_option['type'], ['select', 'radio', 'checkbox'])) && empty($product_option['product_option_value'])) {
+					continue;
+				}
+
 				$this->model_catalog_product->addOption($product_id, $product_option);
 			}
 		}
@@ -324,6 +328,10 @@ class Product extends \Opencart\System\Engine\Model {
 
 		if (isset($data['product_option'])) {
 			foreach ($data['product_option'] as $product_option) {
+				if (in_array($product_option['type'], ['select', 'radio', 'checkbox']) && empty($product_option['product_option_value'])) {
+					continue;
+				}
+
 				$this->model_catalog_product->addOption($product_id, $product_option);
 			}
 		}
@@ -930,8 +938,8 @@ class Product extends \Opencart\System\Engine\Model {
 	 *
 	 * Edit product rating record in the database.
 	 *
-	 * @param int $product_id primary key of the product record
-	 * @param int $rating
+	 * @param int   $product_id primary key of the product record
+	 * @param float $rating
 	 *
 	 * @return void
 	 *
@@ -941,8 +949,8 @@ class Product extends \Opencart\System\Engine\Model {
 	 *
 	 * $this->model_catalog_product->editRating($result['product_id'], $this->model_catalog_review->getRating($product_id));
 	 */
-	public function editRating(int $product_id, int $rating): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "product` SET `rating` = '" . (int)$rating . "', `date_modified` = NOW() WHERE `product_id` = '" . (int)$product_id . "'");
+	public function editRating(int $product_id, float $rating): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "product` SET `rating` = '" . (float)$rating . "', `date_modified` = NOW() WHERE `product_id` = '" . (int)$product_id . "'");
 	}
 
 	/**

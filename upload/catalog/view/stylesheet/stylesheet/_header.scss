@@ -11,7 +11,7 @@
 
   .list-inline-item {
     & > a,
-    .dropdown > a {
+    .dropdown > a, .dropdown > span {
       font-size: 1.1em;
       color: var(--bs-gray-600);
       line-height: 40px;

@@ -93,10 +93,15 @@ class Cart {
 					$product_options = (array)json_decode(!empty($cart['option']) ? $cart['option'] : '{}', true);
 
 					$variant = json_decode(!empty($product_query->row['variant']) ? $product_query->row['variant'] : '{}', true);
+					$override = json_decode(!empty($product_query->row['override']) ? $product_query->row['override'] : '{}', true);
 
 					if ($variant) {
 						foreach ($variant as $key => $value) {
-							$product_options[$key] = $value;
+							if (!empty($override[$key])) {
+								if (!empty($value)) {
+									$product_options[$key] = $value;
+								}
+							}
 						}
 					}
 
@@ -477,7 +482,6 @@ class Cart {
 					} else {
 						$quantity = 1;
 					}
-
 					if (!isset($tax_data[$tax_rate['tax_rate_id']])) {
 						$tax_data[$tax_rate['tax_rate_id']] = ($tax_rate['amount'] * $quantity);
 					} else {

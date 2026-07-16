@@ -1,5 +1,4 @@
 <?php
-
 namespace Opencart\Admin\Controller\Catalog;
 /**
  * Class Product
@@ -51,18 +50,6 @@ class Product extends \Opencart\System\Engine\Controller {
 			$filter_price_to = $this->request->get['filter_price_to'];
 		} else {
 			$filter_price_to = '';
-		}
-
-		if (isset($this->request->get['filter_quantity_from'])) {
-			$filter_quantity_from = $this->request->get['filter_quantity_from'];
-		} else {
-			$filter_quantity_from = '';
-		}
-
-		if (isset($this->request->get['filter_quantity_to'])) {
-			$filter_quantity_to = $this->request->get['filter_quantity_to'];
-		} else {
-			$filter_quantity_to = '';
 		}
 
 		if (isset($this->request->get['filter_quantity_from'])) {
@@ -358,7 +345,7 @@ class Product extends \Opencart\System\Engine\Controller {
 
 			$special = '';
 
-			$product_discounts = $this->model_catalog_product->getDiscounts((int)$result['product_id']);
+			$product_discounts = $this->model_catalog_product->getDiscounts($result['product_id']);
 
 			foreach ($product_discounts as $product_discount) {
 				if (($product_discount['date_start'] == '0000-00-00' || strtotime($product_discount['date_start']) < time()) && ($product_discount['date_end'] == '0000-00-00' || strtotime($product_discount['date_end']) > time())) {
@@ -1008,7 +995,7 @@ class Product extends \Opencart\System\Engine\Controller {
 						$product_option_value_data[] = [
 							'name'   => $option_value_info['name'],
 							'points' => round($product_option_value['points']),
-							'weight' => round($product_option_value['weight']),
+							'weight' => (float)$product_option_value['weight'],
 						] + $product_option_value;
 					}
 				}
@@ -1023,7 +1010,7 @@ class Product extends \Opencart\System\Engine\Controller {
 		$data['option_values'] = [];
 
 		foreach ($data['product_options'] as $product_option) {
-			if ($product_option['type'] == 'select' || $product_option['type'] == 'radio' || $product_option['type'] == 'checkbox' || $product_option['type'] == 'image') {
+			if (in_array($product_option['type'], ['select', 'radio', 'checkbox'])) {
 				if (!isset($data['option_values'][$product_option['option_id']])) {
 					$data['option_values'][$product_option['option_id']] = $this->model_catalog_option->getValues($product_option['option_id']);
 				}
@@ -1163,7 +1150,7 @@ class Product extends \Opencart\System\Engine\Controller {
 		if ($product_id) {
 			$this->load->model('design/seo_url');
 
-			$data['product_seo_url'] = $this->model_design_seo_url->getSeoUrlsByKeyValue('product_id', $product_id);
+			$data['product_seo_url'] = $this->model_design_seo_url->getSeoUrlsByKeyValue('product_id', (string)$product_id);
 		} else {
 			$data['product_seo_url'] = [];
 		}
@@ -1246,6 +1233,15 @@ class Product extends \Opencart\System\Engine\Controller {
 
 		$post_info = $this->request->post + $required;
 
+		// empty variant checks
+		$variant = [];
+		foreach ($post_info['variant'] as $key => $value) {
+			if (!empty($value)) {
+				$variant[$key] = $value;
+			}
+		}
+		$post_info['variant'] = $variant;
+
 		foreach ($post_info['product_description'] as $language_id => $value) {
 			if (!oc_validate_length($value['name'], 1, 255)) {
 				$json['error']['name_' . $language_id] = $this->language->get('error_name');
@@ -1276,9 +1272,18 @@ class Product extends \Opencart\System\Engine\Controller {
 		if ($post_info['master_id']) {
 			$product_options = $this->model_catalog_product->getOptions($post_info['master_id']);
 
-			foreach ($product_options as $product_option) {
+			foreach ($product_options as $row_idx => $product_option) {
 				if (isset($post_info['override']['variant'][$product_option['product_option_id']]) && $product_option['required'] && empty($post_info['variant'][$product_option['product_option_id']])) {
-					$json['error']['option_' . $product_option['product_option_id']] = sprintf($this->language->get('error_required'), $product_option['name']);
+					$json['error']['option-row-' . $row_idx] = sprintf($this->language->get('error_required'), $product_option['name']);
+				}
+			}
+		}
+
+		// Options
+		if (!empty($post_info['product_option'])) {
+			foreach ($post_info['product_option'] as $row_idx => $option) {
+				if ((in_array($option['type'], ['select', 'radio', 'checkbox'])) && empty($option['product_option_value'])) {
+					$json['error']['option-row-' . $row_idx] = sprintf($this->language->get('error_option_value'), $option['name']);
 				}
 			}
 		}
@@ -1530,67 +1535,77 @@ class Product extends \Opencart\System\Engine\Controller {
 
 		foreach ($results as $result) {
 			$option_data = [];
+
+			// Check if product is variant
+			if ($result['master_id']) {
+				$master_id = (int)$result['master_id'];
+			} else {
+				$master_id = (int)$result['product_id'];
+			}
+
+			$product_options = $this->model_catalog_product->getOptions($master_id);
+
+			foreach ($product_options as $product_option) {
+				$override = isset($result['override']['variant'][$product_option['product_option_id']]);
+
+				$option_info = $this->model_catalog_option->getOption($product_option['option_id']);
+
+				if ($option_info) {
+					$product_option_value_data = [];
+
+					foreach ($product_option['product_option_value'] as $product_option_value) {
+						$option_value_info = $this->model_catalog_option->getValue($product_option_value['option_value_id']);
+
+						if ($option_value_info) {
+							$product_option_value_data[] = [
+								'product_option_value_id' => $product_option_value['product_option_value_id'],
+								'option_value_id'         => $product_option_value['option_value_id'],
+								'name'                    => $option_value_info['name'],
+								'price'                   => (float)$product_option_value['price'] ? $this->currency->format($product_option_value['price'], $this->config->get('config_currency')) : false,
+								'price_prefix'            => $product_option_value['price_prefix']
+							];
+						}
+					}
+
+					$option_data[] = [
+						'product_option_id'    => $product_option['product_option_id'],
+						'product_option_value' => $product_option_value_data,
+						'option_id'            => $product_option['option_id'],
+						'name'                 => $option_info['name'],
+						'type'                 => $option_info['type'],
+						'value'                => $override ? $result['variant'][$product_option['product_option_id']] : $product_option['value'],
+						'required'             => $override ? false : $product_option['required'],
+						'disabled'             => $override
+					];
+
+				}
+			}
+
 			$subscription_plan_data = [];
 
-			if ($result['product_id']) {
-				$product_options = $this->model_catalog_product->getOptions($result['product_id']);
+			$product_subscriptions = $this->model_catalog_product->getSubscriptions($result['product_id']);
 
-				foreach ($product_options as $product_option) {
-					$option_info = $this->model_catalog_option->getOption($product_option['option_id']);
+			foreach ($product_subscriptions as $product_subscription) {
+				$subscription_plan_info = $this->model_catalog_subscription_plan->getSubscriptionPlan($product_subscription['subscription_plan_id']);
 
-					if ($option_info) {
-						$product_option_value_data = [];
+				if ($subscription_plan_info) {
+					$price = $this->currency->format($product_subscription['price'], $this->config->get('config_currency'));
+					$cycle = $subscription_plan_info['cycle'];
+					$frequency = $this->language->get('text_' . $subscription_plan_info['frequency']);
+					$duration = $subscription_plan_info['duration'];
 
-						foreach ($product_option['product_option_value'] as $product_option_value) {
-							$option_value_info = $this->model_catalog_option->getValue($product_option_value['option_value_id']);
-
-							if ($option_value_info) {
-								$product_option_value_data[] = [
-									'product_option_value_id' => $product_option_value['product_option_value_id'],
-									'option_value_id'         => $product_option_value['option_value_id'],
-									'name'                    => $option_value_info['name'],
-									'price'                   => (float)$product_option_value['price'] ? $this->currency->format($product_option_value['price'], $this->config->get('config_currency')) : false,
-									'price_prefix'            => $product_option_value['price_prefix']
-								];
-							}
-						}
-
-						$option_data[] = [
-							'product_option_id'    => $product_option['product_option_id'],
-							'product_option_value' => $product_option_value_data,
-							'option_id'            => $product_option['option_id'],
-							'name'                 => $option_info['name'],
-							'type'                 => $option_info['type'],
-							'value'                => $product_option['value'],
-							'required'             => $product_option['required']
-						];
+					if ($subscription_plan_info['duration']) {
+						$description = sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
+					} else {
+						$description = sprintf($this->language->get('text_subscription_cancel'), $price, $cycle, $frequency);
 					}
-				}
 
-				$product_subscriptions = $this->model_catalog_product->getSubscriptions($result['product_id']);
-
-				foreach ($product_subscriptions as $product_subscription) {
-					$subscription_plan_info = $this->model_catalog_subscription_plan->getSubscriptionPlan($product_subscription['subscription_plan_id']);
-
-					if ($subscription_plan_info) {
-						$price = $this->currency->format($product_subscription['price'], $this->config->get('config_currency'));
-						$cycle = $subscription_plan_info['cycle'];
-						$frequency = $this->language->get('text_' . $subscription_plan_info['frequency']);
-						$duration = $subscription_plan_info['duration'];
-
-						if ($subscription_plan_info['duration']) {
-							$description = sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
-						} else {
-							$description = sprintf($this->language->get('text_subscription_cancel'), $price, $cycle, $frequency);
-						}
-
-						$subscription_plan_data[] = [
-							'subscription_plan_id' => $subscription_plan_info['subscription_plan_id'],
-							'customer_group_id'    => $product_subscription['customer_group_id'],
-							'name'                 => $subscription_plan_info['name'],
-							'description'          => $description
-						];
-					}
+					$subscription_plan_data[] = [
+						'subscription_plan_id' => $subscription_plan_info['subscription_plan_id'],
+						'customer_group_id'    => $product_subscription['customer_group_id'],
+						'name'                 => $subscription_plan_info['name'],
+						'description'          => $description
+					];
 				}
 			}
 
