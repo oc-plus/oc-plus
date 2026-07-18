@@ -1,6 +1,7 @@
 <?php
 // Version
-define('VERSION', '4.1.1.0');
+const VERSION = '4.1.0.3';
+const OC_PLUS__VERSION = '1.0.0';
 
 // Configuration
 if (is_file('config.php')) {
