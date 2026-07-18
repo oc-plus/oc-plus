@@ -1,7 +1,7 @@
 <form id="form-modification" method="post" data-oc-toggle="ajax" data-oc-load="{{ action }}" data-oc-target="#modification">
   <div class="table-responsive">
     <table class="table table-bordered table-hover">
-      <thead>
+      <thead class="table-head">
         <tr>
           <th class="text-center" style="width: 1px;"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', $(this).prop('checked'));" class="form-check-input"/></th>
           <th>{% if sort == 'name' %}

@@ -41,6 +41,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 - Improved cache cleanup.
 - Improved .css refresh.
 - Admin: SEO tab merged with General tab.
+- Admin: Improved table header style.
 - `admin/view/javascript/common.js` fixed and improved _(revision using Claude LLM)_.
 - `catalog/view/javascript/common.js` fixed and improved _(revision using Claude LLM)_.
 - Bootstrap CSS and JS libraries updated to version `5.3.8`
@@ -142,6 +143,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 - Display of sales statistics on the Dashboard Map
 - SQL error on `admin/sale/subscription` filter
 - SQL error on `admin/sale/returns` filter
+- Admin: Fixed `Design -> Layouts` form
 - Various minor fixes...
 - **Green Build** - Fixed various static analysis errors and comments
 

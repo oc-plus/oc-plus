@@ -21,8 +21,8 @@
   <fieldset>
     <legend>{{ text_image_additional }}</legend>
     <div class="table-responsive">
-      <table id="product-image" class="table table-hover">
-        <thead>
+      <table id="product-image" class="table table-bordered table-hover">
+        <thead class="table-head">
         <tr>
           <th>{{ entry_image }}</th>
           <th>{{ entry_sort_order }}</th>
@@ -55,7 +55,7 @@
           {% set image_row = image_row + 1 %}
         {% endfor %}
         </tbody>
-        <tfoot>
+        <tfoot class="table-head">
         <tr>
           <td colspan="2"></td>
           <td class="text-end">

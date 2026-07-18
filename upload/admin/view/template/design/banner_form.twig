@@ -45,7 +45,7 @@
             {% for language in languages %}
               <div id="language-{{ language.language_id }}" class="tab-pane{% if loop.first %} active{% endif %}">
                 <table id="image-{{ language.language_id }}" class="table table-bordered table-hover">
-                  <thead>
+                  <thead class="table-head">
                     <tr>
                       <th class="required">{{ entry_title }}</th>
                       <th>{{ entry_link }}</th>

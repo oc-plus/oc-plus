@@ -1,7 +1,7 @@
 <form id="form-translation" method="post" data-oc-toggle="ajax" data-oc-load="{{ action }}" data-oc-target="#translation">
   <div class="table-responsive">
     <table class="table table-bordered">
-      <thead>
+      <thead class="table-head">
         <tr>
           <th class="text-center" style="width: 1px;"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', $(this).prop('checked'));" class="form-check-input"/></th>
           <th><a href="{{ sort_store }}"{% if sort == 'store' %} class="{{ order|lower }}"{% endif %}>{{ column_store }}</a></th>

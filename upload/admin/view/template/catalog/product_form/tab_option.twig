@@ -61,7 +61,7 @@
               {% if product_option.type == 'select' or product_option.type == 'radio' or product_option.type == 'checkbox' or product_option.type == 'image' %}
                 <div class="table-responsive">
                   <table class="table table-bordered table-hover">
-                    <thead>
+                    <thead class="table-head">
                     <tr>
                       <th>{{ entry_option_value }}</th>
                       <th class="text-end">{{ entry_quantity }}</th>
@@ -417,7 +417,7 @@
       if (item['type'] == 'select' || item['type'] == 'radio' || item['type'] == 'checkbox' || item['type'] == 'image') {
         html += '<div class="table-responsive">';
         html += '  <table class="table table-bordered table-hover">';
-        html += '       <thead>';
+        html += '       <thead class="table-head">';
         html += '      <tr>';
         html += '        <td>{{ entry_option_value|escape('js') }}</td>';
         html += '        <td class="text-end">{{ entry_quantity|escape('js') }}</td>';

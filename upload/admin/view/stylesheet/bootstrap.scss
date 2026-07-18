@@ -43,6 +43,7 @@ $breadcrumb-padding-x:      .65rem;
 $breadcrumb-item-padding:   .3rem;
 $breadcrumb-divider-color:  $gray-400;
 $breadcrumb-divider:        "\f105";
+$table-variants: ("head": $gray-100);
 
 @import "bootstrap/bootstrap";
 

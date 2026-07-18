@@ -1,7 +1,7 @@
 <form id="form-order" method="post" data-oc-load="{{ action }}" data-oc-target="#order">
   <div class="table-responsive">
     <table class="table table-bordered table-hover">
-      <thead>
+      <thead class="table-head">
         <tr>
           <th class="text-center" style="width: 1px;"><input type="checkbox" onclick="$('input[name*=\'selected\']').trigger('click');" class="form-check-input"/></th>
           <th class="text-end"><a href="{{ sort_order }}"{% if sort == 'o.order_id' %} class="{{ order|lower }}"{% endif %}>{{ column_order_id }}</a></th>
