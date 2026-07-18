@@ -146,6 +146,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 - SQL error on `admin/sale/subscription` filter
 - SQL error on `admin/sale/returns` filter
 - Admin: Fixed `Design -> Layouts` form
+- Admin: Fixed reports HTML markup errors
 - Various minor fixes...
 - **Green Build** - Fixed various static analysis errors and comments
 
