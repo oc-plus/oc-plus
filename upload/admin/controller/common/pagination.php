@@ -49,7 +49,7 @@ class Pagination extends \Opencart\System\Engine\Controller {
 			$url = '';
 		}
 
-		$num_links = 8;
+		$num_links = 5;
 		$num_pages = ceil($total / $limit);
 
 		if ($url && $page > 1 && $num_pages < $page) {

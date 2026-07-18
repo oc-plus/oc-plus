@@ -1,6 +1,6 @@
 <ul class="pagination">
     {% if first %}
-        <li class="page-item"><a href="{{ first }}" class="page-link">|&lt;</a></li>
+        <li class="page-item text-nowrap"><a href="{{ first }}" class="page-link">|&lt;</a></li>
     {% endif %}
     {% if prev %}
         <li class="page-item"><a href="{{ prev }}" class="page-link">&lt;</a></li>
@@ -16,6 +16,6 @@
         <li class="page-item"><a href="{{ next }}" class="page-link">&gt;</a></li>
     {% endif %}
     {% if last %}
-        <li class="page-item"><a href="{{ last }}" class="page-link">&gt;|</a></li>
+        <li class="page-item text-nowrap"><a href="{{ last }}" class="page-link">&gt;|</a></li>
     {% endif %}
 </ul>
