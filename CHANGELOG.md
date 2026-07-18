@@ -42,6 +42,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 - Improved .css refresh.
 - Admin: SEO tab merged with General tab.
 - Admin: Improved table header style.
+- Admin: Improved mobile viewing.
 - `admin/view/javascript/common.js` fixed and improved _(revision using Claude LLM)_.
 - `catalog/view/javascript/common.js` fixed and improved _(revision using Claude LLM)_.
 - Bootstrap CSS and JS libraries updated to version `5.3.8`

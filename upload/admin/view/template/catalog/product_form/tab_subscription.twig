@@ -1,11 +1,12 @@
 <div id="tab-subscription" class="tab-pane">
+  <div class="d-lg-none p-1">Scroll <i class="fa-solid fa-arrow-right-long"></i></div>
   <div class="table-responsive">
     <table id="product-subscription" class="table table-bordered table-hover">
       <thead class="table-head">
       <tr>
-        <th>{{ entry_subscription }}</th>
-        <th>{{ entry_customer_group }}</th>
-        <th>{{ entry_trial_price }}</th>
+        <th class="text-nowrap">{{ entry_subscription }}</th>
+        <th class="text-nowrap">{{ entry_customer_group }}</th>
+        <th class="text-nowrap">{{ entry_trial_price }}</th>
         <th>{{ entry_price }}</th>
         <th>
           {% if master_id %}
