@@ -30,7 +30,7 @@
                 <input type="text" name="filter_ip" value="" id="input-ip" placeholder="{{ entry_ip }}" class="form-control"/>
               </div>
               <div class="text-end">
-                <button type="button" id="button-filter" class="btn btn-light"><i class="fa-solid fa-filter"></i> {{ button_filter }}</button>
+                <button type="submit" class="btn btn-light"><i class="fa-solid fa-filter"></i> {{ button_filter }}</button>
                 <button type="reset" data-bs-toggle="tooltip" title="{{ button_reset }}" class="btn btn-outline-secondary"><i class="fa-solid fa-filter-circle-xmark"></i></button>
               </div>
             </form>
@@ -46,49 +46,28 @@
     </div>
   </div>
 </div>
-<script type="text/javascript"><!--
-$('#online').on('click', 'thead a, .pagination a', function(e) {
+<script type="text/javascript">
+  ocFilter({
+    formId: '#form-filter',
+    listId: '#online',
+    route: 'report/online',
+    userToken: '{{ user_token }}'
+  });
+
+  ocAutocomplete({
+    inputSelector: '#input-customer',
+    route: 'customer/customer.autocomplete',
+    userToken: '{{ user_token }}',
+    valueKey: 'customer_id',
+    labelKey: 'name',
+    onSelect: function (item) {
+      $('#input-customer').val(decodeHTMLEntities(item.label));
+    }
+  });
+
+  $('#online').on('click', 'thead a, .pagination a', function (e) {
     e.preventDefault();
-
     $('#online').load(this.href);
-});
-
-$('#button-filter, #button-refresh').on('click', function() {
-    var url = '';
-
-    var filter_customer = $('#input-customer').val();
-
-    if (filter_customer) {
-        url += '&filter_customer=' + encodeURIComponent(filter_customer);
-    }
-
-    var filter_ip = $('#input-ip').val();
-
-    if (filter_ip) {
-        url += '&filter_ip=' + encodeURIComponent(filter_ip);
-    }
-
-    $('#online').load('index.php?route=report/online.list&user_token={{ user_token }}' + url);
-});
-
-$('#input-customer').autocomplete({
-    'source': function(request, response) {
-        $.ajax({
-            url: 'index.php?route=customer/customer.autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
-            dataType: 'json',
-            success: function(json) {
-                response($.map(json, function(item) {
-                    return {
-                        label: item['name'],
-                        value: item['customer_id']
-                    }
-                }));
-            }
-        });
-    },
-    'select': function(item) {
-        $('#input-customer').val(decodeHTMLEntities(item['label']));
-    }
-});
-//--></script>
+  });
+</script>
 {{ footer }}
