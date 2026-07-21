@@ -20,9 +20,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 - `admin` Modern `Chart.js` library for Dashboard sales and analytics visualization.
 - `admin` Lightweight library `Jsvectormap` for Dashboard map visualization.
 - `admin` Highlighting active filter buttons.
-- `admin` Added top pagination.
-- `admin` Added `IP` filter autocomplete for online report.
-- `admin` Added `Country Name` filter autocomplete for Countries list.
+- `admin` Top pagination.
+- `admin` Autocomplete for `Countries` filters.
+- `admin` Autocomplete for `Zone` filters.
+- `admin` `IP` filter autocomplete for online report.
 - `catalog` [#15479](https://github.com/opencart/opencart/pull/15479) - Support multi-word product name search.
 - `catalog` Button to change an order on the checkout page.
 
@@ -49,14 +50,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 - `admin` [8996eb3](https://github.com/opencart/opencart/commit/8996eb371620c3c7a453872d39a3a815562690f3) - `partially used` - Improved `admin/controller/marketplace/installer.php`.
 - `admin` [#14820](https://github.com/opencart/opencart/pull/14820) - Event list: always allow for viewing event details.
 - `admin` Reduced the size of the "Delete" buttons on the 'Links' tab of the product form.
-- `admin` Reworked Autocomplete for the Admin panel:
-	- The code has been reworked.
-	- JS is separated into an include file that can be reused.
-	- Removed a large amount of duplicate and outdated code.
 - `admin` Reworked Filters for the Admin panel:
-	- The code has been reworked.
-	- JS is separated into an include file that can be reused.
-	- Clean URLs are generated, without empty selectors.
+	- Improved HTML code.
+	- Used a completely new JS function that can be reused.
+	- Removed a large amount of duplicate and outdated code.
+- `admin` Reworked Autocomplete for the Admin panel:
+	- Used a completely new JS function that can be reused.
 	- Removed a large amount of duplicate and outdated code.
 - `admin` SEO tab merged with General tab.
 - `admin` Improved table header style.

@@ -427,4 +427,18 @@ class Zone extends \Opencart\System\Engine\Model {
 
 		return (int)$query->row['total'];
 	}
+
+	public function autocompleteZoneName(array $data = []): array {
+		$sql = "SELECT * FROM `" . DB_PREFIX . "zone_description` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "'";
+
+		if (!empty($data['filter_name'])) {
+			$sql .= " AND LCASE(`name`) LIKE '%" . $this->db->escape(oc_strtolower($data['filter_name']) . '%') . "'";
+		}
+
+		$sql .= " ORDER BY `name` LIMIT " . (int)$data['limit'];
+
+		$query = $this->db->query($sql);
+
+		return $query->rows;
+	}
 }

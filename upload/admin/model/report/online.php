@@ -113,7 +113,7 @@ class Online extends \Opencart\System\Engine\Model {
 			$sql .= " WHERE `ip` LIKE '" . $this->db->escape((string)$data['filter_ip']) . "%'";
 		}
 
-		$sql .= " ORDER BY `ip` ASC LIMIT " . (int)$data['limit'];
+		$sql .= " ORDER BY `ip` LIMIT " . (int)$data['limit'];
 		$query = $this->db->query($sql);
 
 		return $query->rows;

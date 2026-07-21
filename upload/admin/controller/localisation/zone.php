@@ -476,4 +476,21 @@ class Zone extends \Opencart\System\Engine\Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
+	public function autocomplete(): void {
+		$json = [];
+
+		if (isset($this->request->get['filter_name'])) {
+			$filter_data = [
+				'filter_name' => $this->request->get['filter_name'],
+				'limit'       => $this->config->get('config_autocomplete_limit')
+			];
+
+			$this->load->model('localisation/zone');
+			$json = $this->model_localisation_zone->autocompleteZoneName($filter_data);
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
 }

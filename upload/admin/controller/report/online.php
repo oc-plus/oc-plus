@@ -160,13 +160,7 @@ class Online extends \Opencart\System\Engine\Controller {
 			];
 
 			$this->load->model('report/online');
-			$results = $this->model_report_online->getIp($filter_data);
-
-			foreach ($results as $result) {
-				$json[] = [
-					'ip' => $result['ip']
-				];
-			}
+			$json = $this->model_report_online->getIp($filter_data);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

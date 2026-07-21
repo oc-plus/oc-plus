@@ -24,11 +24,13 @@
             <form id="form-filter">
               <div class="mb-3">
                 <label class="form-label">{{ entry_name }}</label>
-                <input type="text" name="filter_name" value="{{ filter_name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control"/>
+                <input type="text" name="filter_name" value="{{ filter_name }}" placeholder="{{ entry_name }}" id="input-name" data-oc-target="autocomplete-zone" class="form-control" autocomplete="off"/>
+                <ul id="autocomplete-zone" class="dropdown-menu"></ul>
               </div>
               <div class="mb-3">
                 <label class="form-label">{{ entry_country }}</label>
-                <input type="text" name="filter_country" value="{{ filter_country }}" placeholder="{{ entry_country }}" id="input-country" class="form-control"/>
+                <input type="text" name="filter_country" value="{{ filter_country }}" placeholder="{{ entry_country }}" id="input-country" data-oc-target="autocomplete-country" class="form-control" autocomplete="off"/>
+                <ul id="autocomplete-country" class="dropdown-menu"></ul>
               </div>
               <div class="mb-3">
                 <label class="form-label">{{ entry_code }}</label>
@@ -57,6 +59,28 @@
     listId: '#zone',
     route: 'localisation/zone',
     userToken: '{{ user_token }}'
+  });
+
+  ocAutocomplete({
+    inputSelector: '#input-name',
+    route: 'localisation/zone.autocomplete',
+    userToken: '{{ user_token }}',
+    valueKey: 'zone_id',
+    labelKey: 'name',
+    onSelect: function (item) {
+      $('#input-name').val(decodeHTMLEntities(item.label));
+    }
+  });
+
+  ocAutocomplete({
+    inputSelector: '#input-country',
+    route: 'localisation/country.autocomplete',
+    userToken: '{{ user_token }}',
+    valueKey: 'country_id',
+    labelKey: 'name',
+    onSelect: function (item) {
+      $('#input-country').val(decodeHTMLEntities(item.label));
+    }
   });
 
   $('#zone').on('click', 'thead a, .pagination a', function (e) {
