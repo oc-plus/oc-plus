@@ -28,21 +28,22 @@
           <div class="row mb-3">
             <label class="col-sm-2 col-form-label">{{ entry_permission }}</label>
             <div class="col-sm-10">
-              <div id="user-group-permission" class="form-control" style="height: 250px; overflow: auto;">
-                <table class="table table-borderless table-striped">
+              <div id="user-group-permission" class="border" style="height: 230px; overflow: auto;">
+                <table class="table table-hover">
                   <thead class="table-head">
                     <tr>
                       <th class="w-50"></th>
-                      <th class="text-center">{{ text_access }}</th>
-                      <th class="text-center">{{ text_modify }}</th>
+                      <th class="text-center">
+                        {{ text_access }}<br>
+                        <input type="checkbox" id="input-permission-access" class="form-check-input" onchange="$('#user-group-permission input[name^=\'permission[access]\']').prop('checked', $(this).prop('checked'));"/>
+                      </th>
+                      <th class="text-center">
+                        {{ text_modify }}<br>
+                        <input type="checkbox" id="input-permission-modify" class="form-check-input" onchange="$('#user-group-permission input[name^=\'permission[modify]\']').prop('checked', $(this).prop('checked'));"/>
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td><strong>{{ text_all }}</strong></td>
-                      <td class="text-center"><input type="checkbox" id="input-permission-access" class="form-check-input" onchange="$('#user-group-permission input[name^=\'permission[access]\']').prop('checked', $(this).prop('checked'));"/></td>
-                      <td class="text-center"><input type="checkbox" id="input-permission-modify" class="form-check-input" onchange="$('#user-group-permission input[name^=\'permission[modify]\']').prop('checked', $(this).prop('checked'));"/></td>
-                    </tr>
                     {% for permission in permissions %}
                       <tr>
                         <td><label>{{ permission }}</label></td>
@@ -58,21 +59,22 @@
           <div class="row mb-3">
             <label class="col-sm-2 col-form-label">{{ entry_extension }}</label>
             <div class="col-sm-10">
-              <div id="user-group-extension" class="form-control" style="height: 250px; overflow: auto;">
-                <table class="table table-borderless table-striped">
+              <div id="user-group-extension" class="border" style="height: 230px; overflow: auto;">
+                <table class="table table-hover">
                   <thead class="table-head">
                     <tr>
                       <th class="w-50"></th>
-                      <th class="text-center">{{ text_access }}</th>
-                      <th class="text-center">{{ text_modify }}</th>
+                      <th class="text-center">
+                        {{ text_access }}<br>
+                        <input type="checkbox" id="input-permission-access" class="form-check-input" onchange="$('#user-group-extension input[name^=\'permission[access]\']').prop('checked', $(this).prop('checked'));"/>
+                      </th>
+                      <th class="text-center">
+                        {{ text_modify }}<br>
+                        <input type="checkbox" id="input-permission-modify" class="form-check-input" onchange="$('#user-group-extension input[name^=\'permission[modify]\']').prop('checked', $(this).prop('checked'));"/>
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td><strong>{{ text_all }}</strong></td>
-                      <td class="text-center"><input type="checkbox" id="input-permission-access" class="form-check-input" onchange="$('#user-group-extension input[name^=\'permission[access]\']').prop('checked', $(this).prop('checked'));"/></td>
-                      <td class="text-center"><input type="checkbox" id="input-permission-modify" class="form-check-input" onchange="$('#user-group-extension input[name^=\'permission[modify]\']').prop('checked', $(this).prop('checked'));"/></td>
-                    </tr>
                     {% for extension in extensions %}
                       <tr>
                         <td><label>{{ extension }}</label></td>
