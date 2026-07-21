@@ -244,7 +244,7 @@ class Zone extends \Opencart\System\Engine\Controller {
 		$data['order'] = $order;
 
 		$this->document->addScript([
-			'view/javascript/oc/filter.min.js',
+			'view/javascript/oc/filter.js',
 			'view/javascript/oc/autocomplete.min.js'
 		]);
 
