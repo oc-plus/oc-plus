@@ -50,20 +50,24 @@ function ocFilter(options) {
 
 		// We use only non-empty fields
 		var filterData = {};
+		var filterNotEmpty = false;
 		$(this).find('input[name], select[name]').each(function () {
 			var value = $(this).val();
 			if (value !== '' && value !== null) {
 				filterData[$(this).attr('name')] = value;
+				filterNotEmpty = true;
 			}
 		});
 
-		var urlParams = $.param(filterData);
-		var query = urlParams ? '&' + urlParams : '';
+		if (filterNotEmpty) {
+			var urlParams = $.param(filterData);
+			var query = urlParams ? '&' + urlParams : '';
 
-		window.history.pushState({}, null, routePart + query + tokenPart);
-		$list.load(routePart + '.list' + query + tokenPart);
+			window.history.pushState({}, null, routePart + query + tokenPart);
+			$list.load(routePart + '.list' + query + tokenPart);
 
-		$button.removeClass('btn-light').addClass('btn-warning');
+			$button.removeClass('btn-light').addClass('btn-warning');
+		}
 	});
 
 	$form.on('reset', function () {
