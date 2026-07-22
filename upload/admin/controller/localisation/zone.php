@@ -96,31 +96,31 @@ class Zone extends \Opencart\System\Engine\Controller {
 	 */
 	public function getList(): string {
 		if (isset($this->request->get['filter_name'])) {
-			$filter_name = (string)$this->request->get['filter_name'];
+			$filter_name = html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8');
 		} else {
 			$filter_name = '';
 		}
 
 		if (isset($this->request->get['filter_country'])) {
-			$filter_country = (string)$this->request->get['filter_country'];
+			$filter_country = $this->request->get['filter_country'];
 		} else {
 			$filter_country = '';
 		}
 
 		if (isset($this->request->get['filter_code'])) {
-			$filter_code = (string)$this->request->get['filter_code'];
+			$filter_code = $this->request->get['filter_code'];
 		} else {
 			$filter_code = '';
 		}
 
 		if (isset($this->request->get['sort'])) {
-			$sort = (string)$this->request->get['sort'];
+			$sort = $this->request->get['sort'];
 		} else {
 			$sort = 'c.name';
 		}
 
 		if (isset($this->request->get['order'])) {
-			$order = (string)$this->request->get['order'];
+			$order = $this->request->get['order'];
 		} else {
 			$order = 'ASC';
 		}

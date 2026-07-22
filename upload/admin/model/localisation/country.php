@@ -200,15 +200,15 @@ class Country extends \Opencart\System\Engine\Model {
 		$implode = [];
 
 		if (!empty($data['filter_name'])) {
-			$implode[] = "LCASE(`cd`.`name`) LIKE '" . $this->db->escape(oc_strtolower($data['filter_name']) . '%') . "'";
+			$implode[] = "LCASE(`cd`.`name`) LIKE '%" . $this->db->escape(oc_strtolower($data['filter_name'])) . "%'";
 		}
 
 		if (!empty($data['filter_iso_code_2'])) {
-			$implode[] = "LCASE(`c`.`iso_code_2`) LIKE '" . $this->db->escape(oc_strtolower($data['filter_iso_code_2']) . '%') . "'";
+			$implode[] = "LCASE(`c`.`iso_code_2`) LIKE '%" . $this->db->escape(oc_strtolower($data['filter_iso_code_2'])) . "%'";
 		}
 
 		if (!empty($data['filter_iso_code_3'])) {
-			$implode[] = "LCASE(`c`.`iso_code_3`) LIKE '" . $this->db->escape(oc_strtolower($data['filter_iso_code_3']) . '%') . "'";
+			$implode[] = "LCASE(`c`.`iso_code_3`) LIKE '%" . $this->db->escape(oc_strtolower($data['filter_iso_code_3'])) . "%'";
 		}
 
 		if ($implode) {
