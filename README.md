@@ -56,8 +56,8 @@ For a real-world example in action, you can visit small multilanguage website: h
 - **Web Server**: Apache 2.x.x.  
   While operation on Nginx + PHP-FPM is theoretically possible, it has not been tested yet.
 - **Database Server**: Current versions of MariaDB or MySQL.  
-  OC+ has not been tested with other database systems, and compatibility is not guaranteed.
-- **PHP**: 8.1 – 8.5 _(PHP 8.4 is recommended)_.
+  OC+ has not been tested with PostgreSQL, and compatibility is not guaranteed.
+- **PHP**: 8.2 – 8.5 _(PHP 8.4 is recommended)_.
 - **PHP Settings**:
   - `max_execution_time` = 150 
   - `max_input_time` = 180 
@@ -168,12 +168,12 @@ distribution, and you are good to go.
 
 The project environment will be available at the following addresses:
 - **Storefront**: https://localhost
-  - Login: `user@example.com`
+  - Login: `customer@example.com`
   - Password: `testuser`
 - **Administration**: https://localhost/admin
   - Login: `admin`
   - Password: `admin`
-  - Email: `test@example.com`
+  - Email: `admin@example.com`
 - **Mailpit** (Email Testing): http://localhost:8025
 - **Database** (MariaDB):
    - Host: `mysql`
