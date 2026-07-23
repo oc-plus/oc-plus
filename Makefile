@@ -63,7 +63,7 @@ db-dump:
     	echo "TRUNCATE TABLE $$t;" | mariadb -h $(DB_HOST) -u $(DB_USER) -p$(DB_PASS) $(DB_NAME); \
     done
 	@echo "Dumping database $(DB_NAME) from $(DB_HOST)..."
-	@mariadb-dump --add-drop-table -h $(DB_HOST) -u $(DB_USER) -p$(DB_PASS) $(DB_NAME) > $(DUMP_FILE)
+	@mariadb-dump --add-drop-table --skip-add-locks --skip-disable-keys --skip-no-autocommit -h $(DB_HOST) -u $(DB_USER) -p$(DB_PASS) $(DB_NAME) > $(DUMP_FILE)
 	@echo "Dump saved to $(DUMP_FILE)"
 	@echo "————————————————————————————————————————————————————————————"
 
