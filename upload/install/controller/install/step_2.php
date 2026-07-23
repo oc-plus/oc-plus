@@ -26,7 +26,6 @@ class Step2 extends \Opencart\System\Engine\Controller {
 		$data['text_current'] = $this->language->get('text_current');
 		$data['text_required'] = $this->language->get('text_required');
 		$data['text_extension'] = $this->language->get('text_extension');
-		$data['text_status'] = $this->language->get('text_status');
 		$data['text_on'] = $this->language->get('text_on');
 		$data['text_off'] = $this->language->get('text_off');
 		$data['text_version'] = $this->language->get('text_version');
@@ -53,7 +52,7 @@ class Step2 extends \Opencart\System\Engine\Controller {
 		$data['button_back'] = $this->language->get('button_back');
 
 		$data['php_version'] = PHP_VERSION;
-		$data['version'] = version_compare(PHP_VERSION, '8.1', '>=');
+		$data['version'] = version_compare(PHP_VERSION, '8.2', '>=');
 
 		$open_basedir = str_replace('\\', '/', ini_get('open_basedir'));
 
@@ -127,9 +126,6 @@ class Step2 extends \Opencart\System\Engine\Controller {
 			$data['error_admin_config'] = '';
 		}
 
-		$data['catalog_config'] = DIR_OPENCART . 'config.php';
-		$data['admin_config'] = DIR_OPENCART . 'admin/config.php';
-
 		$data['back'] = $this->url->link('install/step_1', 'language=' . $this->config->get('language_code'));
 
 		$data['language'] = $this->config->get('language_code');
@@ -150,7 +146,7 @@ class Step2 extends \Opencart\System\Engine\Controller {
 
 		$json = [];
 
-		if (version_compare(PHP_VERSION, '8.1', '<')) {
+		if (version_compare(PHP_VERSION, '8.2', '<')) {
 			$json['error'] = $this->language->get('error_version');
 		}
 
