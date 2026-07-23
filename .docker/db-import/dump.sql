@@ -1,4 +1,4 @@
-/*M!999999\- enable the sandbox mode */
+/*M!999999\- enable the sandbox mode */ 
 -- MariaDB dump 10.19-11.8.8-MariaDB, for Linux (x86_64)
 --
 -- Host: 127.0.0.1    Database: opencart
@@ -1529,14 +1529,14 @@ CREATE TABLE `oc_currency` (
 --
 
 INSERT INTO `oc_currency` VALUES
-(1,'Pound Sterling','GBP','£','',2,0.61250001,1,'2014-09-25 14:40:00'),
-(2,'US Dollar','USD','$','',2,1.00000000,1,'2014-09-25 14:40:00'),
-(3,'Euro','EUR','','€',2,0.78460002,1,'2014-09-25 14:40:00'),
-(4,'Hong Kong Dollar','HKD','HK$','',2,7.82224000,0,'2018-02-16 12:00:00'),
-(5,'Indian Rupee','INR','₹','',2,64.40000000,0,'2018-02-16 12:00:00'),
+(1,'Pound Sterling','GBP','£','',2,0.74892907,1,'2026-07-24 11:17:28'),
+(2,'US Dollar','USD','$','',2,1.00000000,1,'2026-07-24 11:17:28'),
+(3,'Euro','EUR','','€',2,0.87780899,1,'2026-07-24 11:17:28'),
+(4,'Hong Kong Dollar','HKD','HK$','',2,7.84129213,0,'2026-07-24 11:17:28'),
+(5,'Indian Rupee','INR','₹','',2,96.58137289,0,'2026-07-24 11:17:28'),
 (6,'Russian Ruble','RUB','','₽',2,56.40360000,0,'2018-02-16 12:00:00'),
-(7,'Chinese Yuan Renminbi','CNY','¥','',2,6.34510000,0,'2018-02-16 12:00:00'),
-(8,'Australian Dollar','AUD','$','',2,1.26544000,0,'2018-02-16 12:00:00');
+(7,'Chinese Yuan Renminbi','CNY','¥','',2,6.77027739,0,'2026-07-24 11:17:28'),
+(8,'Australian Dollar','AUD','$','',2,1.43003862,0,'2026-07-24 11:17:28');
 
 --
 -- Table structure for table `oc_custom_field`
@@ -1811,13 +1811,15 @@ CREATE TABLE `oc_customer` (
   `date_added` datetime DEFAULT NULL,
   PRIMARY KEY (`customer_id`),
   KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `oc_customer`
 --
 
+INSERT INTO `oc_customer` VALUES
+(1,1,0,1,'John','Doe','customer@example.com','000 000 000','$2y$12$gaBZNj.zQ/txi0OqiSvRZeMjvY8vTrIVTGX4TRWjbitBmhSn6qVoe','[]',0,'172.18.0.1',1,0,0,NULL,NULL,'2026-07-24 11:18:11');
 
 --
 -- Table structure for table `oc_customer_activity`
@@ -1834,13 +1836,15 @@ CREATE TABLE `oc_customer_activity` (
   `ip` varchar(40) DEFAULT NULL,
   `date_added` datetime DEFAULT NULL,
   PRIMARY KEY (`customer_activity_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `oc_customer_activity`
 --
 
+INSERT INTO `oc_customer_activity` VALUES
+(1,1,'register','{\"customer_id\":1,\"name\":\"John Doe\"}','172.18.0.1','2026-07-24 11:18:11');
 
 --
 -- Table structure for table `oc_customer_affiliate`
@@ -2033,13 +2037,15 @@ CREATE TABLE `oc_customer_ip` (
   `date_added` datetime DEFAULT NULL,
   PRIMARY KEY (`customer_ip_id`),
   KEY `ip` (`ip`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `oc_customer_ip`
 --
 
+INSERT INTO `oc_customer_ip` VALUES
+(1,1,0,'172.18.0.1','','2026-07-24 11:18:11');
 
 --
 -- Table structure for table `oc_customer_login`
@@ -4834,7 +4840,7 @@ CREATE TABLE `oc_setting` (
   `value` text DEFAULT NULL,
   `serialized` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`setting_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=222 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=366 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4842,137 +4848,6 @@ CREATE TABLE `oc_setting` (
 --
 
 INSERT INTO `oc_setting` VALUES
-(1,0,'config','config_shared','0',0),
-(2,0,'config','config_fraud_detection','0',0),
-(3,0,'config','config_description','{\"1\":{\"meta_title\":\"Your Store\",\"meta_description\":\"\",\"meta_keyword\":\"\"}}',1),
-(4,0,'config','config_session_expire','86400',0),
-(5,0,'config','config_session_samesite','Strict',0),
-(6,0,'config','config_theme','basic',0),
-(7,0,'config','config_layout_id','4',0),
-(8,0,'config','config_country_id','222',0),
-(9,0,'config','config_zone_id','3563',0),
-(10,0,'config','config_timezone','UTC',0),
-(11,0,'config','config_language_catalog','en-gb',0),
-(12,0,'config','config_language_admin','en-gb',0),
-(13,0,'config','config_currency','USD',0),
-(14,0,'config','config_currency_auto','1',0),
-(15,0,'config','config_currency_engine','ecb',0),
-(16,0,'config','config_length_class_id','1',0),
-(17,0,'config','config_weight_class_id','1',0),
-(18,0,'config','config_product_description_length','100',0),
-(19,0,'config','config_article_description_length','600',0),
-(20,0,'config','config_pagination','10',0),
-(21,0,'config','config_pagination_admin','10',0),
-(22,0,'config','config_autocomplete_limit','5',0),
-(23,0,'config','config_product_count','1',0),
-(24,0,'config','config_product_filters','and',0),
-(25,0,'config','config_product_search','and',0),
-(26,0,'config','config_product_search_admin','and',0),
-(27,0,'config','config_review_status','1',0),
-(28,0,'config','config_review_guest','1',0),
-(29,0,'config','config_cookie_id','0',0),
-(30,0,'config','config_gdpr_id','0',0),
-(31,0,'config','config_gdpr_limit','180',0),
-(32,0,'config','config_tax','1',0),
-(33,0,'config','config_tax_default','shipping',0),
-(34,0,'config','config_tax_customer','shipping',0),
-(35,0,'config','config_customer_online','0',0),
-(36,0,'config','config_customer_online_expire','1',0),
-(37,0,'config','config_customer_activity','0',0),
-(38,0,'config','config_customer_search','0',0),
-(39,0,'config','config_customer_group_id','1',0),
-(40,0,'config','config_customer_group_display','[\"1\"]',1),
-(41,0,'config','config_customer_price','0',0),
-(42,0,'config','config_address_format_id','1',0),
-(43,0,'config','config_account_id','3',0),
-(44,0,'config','config_invoice_prefix','INV-2026-00',0),
-(46,0,'config','config_cart_weight','1',0),
-(47,0,'config','config_checkout_guest','1',0),
-(48,0,'config','config_checkout_id','0',0),
-(49,0,'config','config_order_status_id','1',0),
-(50,0,'config','config_processing_status','[\"5\",\"1\",\"2\",\"12\",\"3\"]',1),
-(51,0,'config','config_complete_status','[\"5\",\"3\"]',1),
-(52,0,'config','config_void_status_id','16',0),
-(53,0,'config','config_fraud_status_id','8',0),
-(54,0,'config','config_subscription_status_id','1',0),
-(55,0,'config','config_subscription_active_status_id','2',0),
-(56,0,'config','config_subscription_expired_status_id','3',0),
-(57,0,'config','config_subscription_suspended_status_id','4',0),
-(58,0,'config','config_subscription_canceled_status_id','5',0),
-(59,0,'config','config_subscription_failed_status_id','6',0),
-(60,0,'config','config_subscription_denied_status_id','7',0),
-(61,0,'config','config_stock_display','0',0),
-(62,0,'config','config_stock_warning','0',0),
-(63,0,'config','config_stock_checkout','0',0),
-(64,0,'config','config_stock_status_id','7',0),
-(65,0,'config','config_affiliate_status','1',0),
-(66,0,'config','config_affiliate_approval','0',0),
-(67,0,'config','config_affiliate_auto','0',0),
-(68,0,'config','config_affiliate_commission','5',0),
-(69,0,'config','config_affiliate_id','4',0),
-(70,0,'config','config_return_id','0',0),
-(71,0,'config','config_return_status_id','2',0),
-(72,0,'config','config_logo','catalog/opencart-logo.png',0),
-(73,0,'config','config_icon','catalog/opencart.ico',0),
-(74,0,'config','config_image_default_width','150',0),
-(75,0,'config','config_image_default_height','150',0),
-(76,0,'config','config_image_thumb_width','500',0),
-(77,0,'config','config_image_thumb_height','500',0),
-(78,0,'config','config_image_popup_width','800',0),
-(79,0,'config','config_image_popup_height','800',0),
-(80,0,'config','config_image_category_width','300',0),
-(81,0,'config','config_image_category_height','300',0),
-(82,0,'config','config_image_article_width','1140',0),
-(83,0,'config','config_image_article_height','380',0),
-(84,0,'config','config_image_topic_width','1140',0),
-(85,0,'config','config_image_topic_height','380',0),
-(86,0,'config','config_image_product_width','250',0),
-(87,0,'config','config_image_product_height','250',0),
-(88,0,'config','config_image_additional_width','74',0),
-(89,0,'config','config_image_additional_height','74',0),
-(90,0,'config','config_image_related_width','250',0),
-(91,0,'config','config_image_related_height','250',0),
-(92,0,'config','config_image_compare_width','90',0),
-(93,0,'config','config_image_compare_height','90',0),
-(94,0,'config','config_image_wishlist_width','47',0),
-(95,0,'config','config_image_wishlist_height','47',0),
-(96,0,'config','config_image_cart_height','47',0),
-(97,0,'config','config_image_cart_width','47',0),
-(98,0,'config','config_image_location_height','268',0),
-(99,0,'config','config_image_location_width','268',0),
-(100,0,'config','config_open','',0),
-(101,0,'config','config_image','',0),
-(102,0,'config','config_fax','',0),
-(103,0,'config','config_telephone','123456789',0),
-(104,0,'config','config_email','user@example.com',0),
-(105,0,'config','config_geocode','',0),
-(106,0,'config','config_owner','Your Name',0),
-(107,0,'config','config_address','Address 1',0),
-(108,0,'config','config_name','Your Store',0),
-(109,0,'config','config_seo_url','0',0),
-(110,0,'config','config_file_max_size','20',0),
-(111,0,'config','config_file_ext_allowed','zip\r\ntxt\r\npng\r\njpe\r\njpeg\r\nwebp\r\njpg\r\ngif\r\nbmp\r\nico\r\ntiff\r\ntif\r\nsvg\r\nsvgz\r\nzip\r\nrar\r\nmsi\r\ncab\r\nmp3\r\nmp4\r\nqt\r\nmov\r\npdf\r\npsd\r\nai\r\neps\r\nps\r\ndoc',0),
-(112,0,'config','config_file_mime_allowed','text/plain\r\nimage/png\r\nimage/webp\r\nimage/jpeg\r\nimage/gif\r\nimage/bmp\r\nimage/tiff\r\nimage/svg+xml\r\napplication/zip\r\napplication/x-zip\r\napplication/x-zip-compressed\r\napplication/rar\r\napplication/x-rar\r\napplication/x-rar-compressed\r\napplication/octet-stream\r\naudio/mpeg\r\nvideo/mp4\r\nvideo/quicktime\r\napplication/pdf',0),
-(113,0,'config','config_maintenance','0',0),
-(114,0,'config','config_encryption','',0),
-(115,0,'config','config_compression','0',0),
-(116,0,'config','config_error_display','1',0),
-(117,0,'config','config_error_log','1',0),
-(118,0,'config','config_error_filename','error.log',0),
-(119,0,'config','config_mail_engine','',0),
-(120,0,'config','config_mail_parameter','',0),
-(121,0,'config','config_mail_smtp_hostname','',0),
-(122,0,'config','config_mail_smtp_username','',0),
-(123,0,'config','config_mail_smtp_password','',0),
-(124,0,'config','config_mail_smtp_port','25',0),
-(125,0,'config','config_mail_smtp_timeout','5',0),
-(126,0,'config','config_mail_alert_email','',0),
-(127,0,'config','config_mail_alert','[\"order\"]',1),
-(128,0,'config','config_captcha','basic',0),
-(129,0,'config','config_captcha_page','[\"review\",\"return\",\"contact\"]',1),
-(130,0,'config','config_2fa_expire','90',0),
-(131,0,'config','config_login_attempts','5',0),
-(132,0,'config','config_password_length','6',0),
 (133,0,'currency_ecb','currency_ecb_status','1',0),
 (134,0,'dashboard_activity','dashboard_activity_status','1',0),
 (135,0,'dashboard_activity','dashboard_activity_sort_order','7',0),
@@ -5061,7 +4936,150 @@ INSERT INTO `oc_setting` VALUES
 (218,0,'total_shipping','total_shipping_estimator','1',0),
 (219,0,'total_coupon','total_coupon_sort_order','4',0),
 (220,0,'total_coupon','total_coupon_status','1',0),
-(221,0,'config','config_api_id','1',0);
+(222,0,'config','config_name','Your Store',0),
+(223,0,'config','config_theme','basic',0),
+(224,0,'config','config_layout_id','4',0),
+(225,0,'config','config_logo','catalog/opencart-logo.png',0),
+(226,0,'config','config_icon','catalog/opencart.ico',0),
+(227,0,'config','config_description','{\"1\":{\"meta_title\":\"Your Store\",\"meta_description\":\"\",\"meta_keyword\":\"\"}}',1),
+(228,0,'config','config_owner','Your Name',0),
+(229,0,'config','config_address','Address 1',0),
+(230,0,'config','config_geocode','',0),
+(231,0,'config','config_email','user@example.com',0),
+(232,0,'config','config_telephone','123456789',0),
+(233,0,'config','config_image','',0),
+(234,0,'config','config_open','',0),
+(235,0,'config','config_comment','',0),
+(236,0,'config','config_country_id','222',0),
+(237,0,'config','config_zone_id','3563',0),
+(238,0,'config','config_timezone','UTC',0),
+(239,0,'config','config_language_catalog','en-gb',0),
+(240,0,'config','config_language_admin','en-gb',0),
+(241,0,'config','config_currency','USD',0),
+(242,0,'config','config_currency_engine','ecb',0),
+(243,0,'config','config_currency_auto','1',0),
+(244,0,'config','config_length_class_id','1',0),
+(245,0,'config','config_weight_class_id','1',0),
+(246,0,'config','config_product_description_length','100',0),
+(247,0,'config','config_pagination','10',0),
+(248,0,'config','config_product_count','1',0),
+(249,0,'config','config_pagination_admin','10',0),
+(250,0,'config','config_autocomplete_limit','5',0),
+(251,0,'config','config_product_report_status','0',0),
+(252,0,'config','config_product_search','and',0),
+(253,0,'config','config_product_search_admin','and',0),
+(254,0,'config','config_product_filters','and',0),
+(255,0,'config','config_review_status','1',0),
+(256,0,'config','config_review_purchased','0',0),
+(257,0,'config','config_review_guest','1',0),
+(258,0,'config','config_article_description_length','600',0),
+(259,0,'config','config_comment_status','0',0),
+(260,0,'config','config_comment_approve','0',0),
+(261,0,'config','config_comment_interval','',0),
+(262,0,'config','config_cookie_id','0',0),
+(263,0,'config','config_gdpr_id','0',0),
+(264,0,'config','config_gdpr_limit','180',0),
+(265,0,'config','config_tax','1',0),
+(266,0,'config','config_tax_default','shipping',0),
+(267,0,'config','config_tax_customer','shipping',0),
+(268,0,'config','config_customer_online','1',0),
+(269,0,'config','config_customer_online_expire','1',0),
+(270,0,'config','config_customer_activity','1',0),
+(271,0,'config','config_customer_search','1',0),
+(272,0,'config','config_customer_group_id','1',0),
+(273,0,'config','config_customer_group_display','[\"1\"]',1),
+(274,0,'config','config_customer_price','0',0),
+(275,0,'config','config_telephone_display','1',0),
+(276,0,'config','config_telephone_required','1',0),
+(277,0,'config','config_account_id','2',0),
+(278,0,'config','config_2fa','0',0),
+(279,0,'config','config_login_attempts','5',0),
+(280,0,'config','config_password_length','6',0),
+(281,0,'config','config_invoice_prefix','INV-2026-00',0),
+(282,0,'config','config_cart_weight','1',0),
+(283,0,'config','config_checkout_guest','1',0),
+(284,0,'config','config_checkout_payment_address','0',0),
+(285,0,'config','config_checkout_shipping_address','0',0),
+(286,0,'config','config_checkout_id','0',0),
+(287,0,'config','config_order_status_id','1',0),
+(288,0,'config','config_processing_status','[\"5\",\"1\",\"2\",\"12\",\"3\"]',1),
+(289,0,'config','config_complete_status','[\"5\",\"3\"]',1),
+(290,0,'config','config_failed_status_id','7',0),
+(291,0,'config','config_void_status_id','16',0),
+(292,0,'config','config_fraud_status_id','8',0),
+(293,0,'config','config_api_id','1',0),
+(294,0,'config','config_subscription_status_id','1',0),
+(295,0,'config','config_subscription_active_status_id','2',0),
+(296,0,'config','config_subscription_expired_status_id','3',0),
+(297,0,'config','config_subscription_suspended_status_id','4',0),
+(298,0,'config','config_subscription_canceled_status_id','5',0),
+(299,0,'config','config_subscription_failed_status_id','6',0),
+(300,0,'config','config_subscription_denied_status_id','7',0),
+(301,0,'config','config_stock_display','0',0),
+(302,0,'config','config_stock_warning','0',0),
+(303,0,'config','config_stock_checkout','0',0),
+(304,0,'config','config_stock_status_id','7',0),
+(305,0,'config','config_affiliate_status','1',0),
+(306,0,'config','config_affiliate_group_id','1',0),
+(307,0,'config','config_affiliate_approval','0',0),
+(308,0,'config','config_affiliate_auto','0',0),
+(309,0,'config','config_affiliate_commission','5',0),
+(310,0,'config','config_affiliate_expire','',0),
+(311,0,'config','config_affiliate_id','4',0),
+(312,0,'config','config_return_status_id','2',0),
+(313,0,'config','config_return_id','0',0),
+(314,0,'config','config_captcha','',0),
+(315,0,'config','config_captcha_page','[\"review\",\"contact\"]',1),
+(316,0,'config','config_image_default_width','150',0),
+(317,0,'config','config_image_default_height','150',0),
+(318,0,'config','config_image_category_width','300',0),
+(319,0,'config','config_image_category_height','300',0),
+(320,0,'config','config_image_thumb_width','500',0),
+(321,0,'config','config_image_thumb_height','500',0),
+(322,0,'config','config_image_popup_width','800',0),
+(323,0,'config','config_image_popup_height','800',0),
+(324,0,'config','config_image_product_width','250',0),
+(325,0,'config','config_image_product_height','250',0),
+(326,0,'config','config_image_additional_width','74',0),
+(327,0,'config','config_image_additional_height','74',0),
+(328,0,'config','config_image_related_width','250',0),
+(329,0,'config','config_image_related_height','250',0),
+(330,0,'config','config_image_article_width','1140',0),
+(331,0,'config','config_image_article_height','380',0),
+(332,0,'config','config_image_topic_width','1140',0),
+(333,0,'config','config_image_topic_height','380',0),
+(334,0,'config','config_image_compare_width','90',0),
+(335,0,'config','config_image_compare_height','90',0),
+(336,0,'config','config_image_wishlist_width','47',0),
+(337,0,'config','config_image_wishlist_height','47',0),
+(338,0,'config','config_image_cart_width','47',0),
+(339,0,'config','config_image_cart_height','47',0),
+(340,0,'config','config_image_location_width','268',0),
+(341,0,'config','config_image_location_height','268',0),
+(342,0,'config','config_mail_engine','',0),
+(343,0,'config','config_mail_parameter','',0),
+(344,0,'config','config_mail_smtp_hostname','',0),
+(345,0,'config','config_mail_smtp_username','',0),
+(346,0,'config','config_mail_smtp_password','',0),
+(347,0,'config','config_mail_smtp_port','25',0),
+(348,0,'config','config_mail_smtp_timeout','5',0),
+(349,0,'config','config_mail_alert','[\"order\"]',1),
+(350,0,'config','config_mail_alert_email','',0),
+(351,0,'config','config_maintenance','0',0),
+(352,0,'config','config_session_expire','86400',0),
+(353,0,'config','config_session_samesite','Strict',0),
+(354,0,'config','config_seo_url','0',0),
+(355,0,'config','config_compression','0',0),
+(356,0,'config','config_user_2fa','0',0),
+(357,0,'config','config_2fa_expire','90',0),
+(358,0,'config','config_user_password_length','',0),
+(359,0,'config','config_shared','0',0),
+(360,0,'config','config_file_max_size','20',0),
+(361,0,'config','config_file_ext_allowed','zip\r\ntxt\r\npng\r\njpe\r\njpeg\r\nwebp\r\njpg\r\ngif\r\nbmp\r\nico\r\ntiff\r\ntif\r\nsvg\r\nsvgz\r\nzip\r\nrar\r\nmsi\r\ncab\r\nmp3\r\nmp4\r\nqt\r\nmov\r\npdf\r\npsd\r\nai\r\neps\r\nps\r\ndoc',0),
+(362,0,'config','config_file_mime_allowed','text/plain\r\nimage/png\r\nimage/webp\r\nimage/jpeg\r\nimage/gif\r\nimage/bmp\r\nimage/tiff\r\nimage/svg+xml\r\napplication/zip\r\napplication/x-zip\r\napplication/x-zip-compressed\r\napplication/rar\r\napplication/x-rar\r\napplication/x-rar-compressed\r\napplication/octet-stream\r\naudio/mpeg\r\nvideo/mp4\r\nvideo/quicktime\r\napplication/pdf',0),
+(363,0,'config','config_error_display','1',0),
+(364,0,'config','config_error_log','1',0),
+(365,0,'config','config_error_filename','error.log',0);
 
 --
 -- Table structure for table `oc_startup`
@@ -5741,7 +5759,7 @@ CREATE TABLE `oc_user_login` (
   `user_agent` varchar(255) DEFAULT NULL,
   `date_added` datetime DEFAULT NULL,
   PRIMARY KEY (`user_login_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -5749,7 +5767,8 @@ CREATE TABLE `oc_user_login` (
 --
 
 INSERT INTO `oc_user_login` VALUES
-(1,1,'172.18.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0','2026-07-24 01:34:25');
+(1,1,'172.18.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0','2026-07-24 01:34:25'),
+(2,1,'172.18.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0','2026-07-24 11:16:47');
 
 --
 -- Table structure for table `oc_user_token`
@@ -14138,4 +14157,4 @@ INSERT INTO `oc_zone_to_geo_zone` VALUES
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-07-24  6:06:05
+-- Dump completed on 2026-07-24 15:18:54
