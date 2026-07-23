@@ -49,8 +49,7 @@ class Step3 extends \Opencart\System\Engine\Controller {
 		$data['button_back'] = $this->language->get('button_back');
 
 		$db_drivers = [
-			'mysqli',
-			'pdo'
+			'mysqli'
 		];
 
 		$data['drivers'] = [];
