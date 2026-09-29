@@ -37,7 +37,7 @@ To provide a stable, production-ready environment by backporting essential fixes
 This ensures a robust, production-ready core that remains a drop-in replacement for any 4.1.0.3 - 4.1.0.4-compatible environment.
 
 ## Compatibility Guarantee
-This project are strictly developed to maintain **full backward compatibility with OpenCart 4.1.0.3 and 4.1.0.4**.
+This project are strictly developed to maintain **full backward compatibility with OpenCart 4.1.0.4**.
 All included fixes and improvements have been extensively tested on live production sites.
 They are fully compatible with major frameworks and heavy-duty extensions,
 including **[Journal 3.2.10](https://themeforest.net/item/journal-advanced-opencart-theme/4260361)**
