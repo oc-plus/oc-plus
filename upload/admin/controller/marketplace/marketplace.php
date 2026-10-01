@@ -111,9 +111,9 @@ class Marketplace extends \Opencart\System\Engine\Controller {
 		$string .= VERSION . "\n";
 		$string .= $time . "\n";
 
-		$signature = base64_encode(hash_hmac('sha1', $string, $this->config->get('opencart_secret'), true));
+		$signature = base64_encode(hash_hmac('sha1', $string, $this->config->get('opencart_secret', ''), true));
 
-		$url  = '&username=' . urlencode($this->config->get('opencart_username'));
+		$url  = '&username=' . urlencode($this->config->get('opencart_username', ''));
 		$url .= '&domain=' . $this->request->server['HTTP_HOST'];
 		$url .= '&version=' . VERSION;
 		$url .= '&time=' . $time;

@@ -23,17 +23,19 @@ class DB {
 	/**
 	 * Constructor
 	 *
-	 * @param string $adaptor
-	 * @param string $hostname
-	 * @param string $username
-	 * @param string $password
-	 * @param string $database
-	 * @param string $port
-	 * @param string $ssl_key
-	 * @param string $ssl_cert
-	 * @param string $ssl_ca
+	 * @param string      $adaptor
+	 * @param string      $hostname
+	 * @param string      $username
+	 * @param string      $password
+	 * @param string      $database
+	 * @param string      $port
+	 * @param string|null $ssl_key
+	 * @param string|null $ssl_cert
+	 * @param string|null $ssl_ca
+	 *
+	 * @throws \Exception
 	 */
-	public function __construct(string $adaptor, string $hostname, string $username, string $password, string $database, string $port = '', string $ssl_key = '', string $ssl_cert = '', string $ssl_ca = '') {
+	public function __construct(string $adaptor, string $hostname, string $username, string $password, string $database, string $port = '', ?string $ssl_key = '', ?string $ssl_cert = '', ?string $ssl_ca = '') {
 		$class = 'Opencart\System\Library\DB\\' . $adaptor;
 
 		if (class_exists($class)) {

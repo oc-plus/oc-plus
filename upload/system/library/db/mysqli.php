@@ -23,7 +23,7 @@ class MySQLi {
 	 * @param string $ssl_cert
 	 * @param string $ssl_ca
 	 */
-	public function __construct(string $hostname, string $username, string $password, string $database, int $port = 0, string $ssl_key = '', string $ssl_cert = '', string $ssl_ca = '') {
+	public function __construct(string $hostname, string $username, string $password, string $database, int $port = 0, ?string $ssl_key = '', ?string $ssl_cert = '', ?string $ssl_ca = '') {
 		if (!$port) {
 			$port = 3306;
 		}
