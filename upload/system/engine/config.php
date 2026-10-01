@@ -43,12 +43,13 @@ class Config {
 	/**
 	 * Get
 	 *
-	 * @param string $key
+	 * @param string     $key
+	 * @param mixed|null $default
 	 *
 	 * @return mixed
 	 */
-	public function get(string $key) {
-		return $this->data[$key] ?? '';
+	public function get(string $key, mixed $default = null): mixed {
+		return $this->data[$key] ?? $default;
 	}
 
 	/**
@@ -57,7 +58,7 @@ class Config {
 	 * @param string $key
 	 * @param mixed  $value
 	 */
-	public function set(string $key, $value): void {
+	public function set(string $key, mixed $value): void {
 		$this->data[$key] = $value;
 	}
 
