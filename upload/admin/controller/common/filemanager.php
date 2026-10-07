@@ -70,6 +70,8 @@ class FileManager extends Controller {
 			$filter_name = '';
 		}
 
+		$filter_case = isset($this->request->get['filter_case']) ? (bool)$this->request->get['filter_case'] : true;
+
 		if (isset($this->request->get['page'])) {
 			$page = (int)$this->request->get['page'];
 		} else {
@@ -93,7 +95,7 @@ class FileManager extends Controller {
 		$paths = array_diff(scandir($directory), ['..', '.']);
 
 		foreach ($paths as $value) {
-			if ($filter_name && !preg_match('~' . str_replace(['\*', '\?'], ['.*', '.'], preg_quote($filter_name, '~')) . '~i', $value)) {
+			if ($filter_name && !preg_match('~' . str_replace(['\*', '\?'], ['.*', '.'], preg_quote($filter_name, '~')) . '~' . ($filter_case ? '' : 'i'), $value)) {
 				continue;
 			}
 
@@ -173,6 +175,8 @@ class FileManager extends Controller {
 			$data['filter_name'] = '';
 		}
 
+		$data['filter_case'] = $filter_case;
+
 		// Parent
 		$url = '';
 
@@ -209,6 +213,8 @@ class FileManager extends Controller {
 			$url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
 		}
 
+		$url .= '&filter_case=' . (int)$filter_case;
+
 		if (isset($this->request->get['target'])) {
 			$url .= '&target=' . $this->request->get['target'];
 		}
@@ -236,6 +242,8 @@ class FileManager extends Controller {
 		if (isset($this->request->get['filter_name'])) {
 			$url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
 		}
+
+		$url .= '&filter_case=' . (int)$filter_case;
 
 		if (isset($this->request->get['target'])) {
 			$url .= '&target=' . $this->request->get['target'];
