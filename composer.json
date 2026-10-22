@@ -1,6 +1,6 @@
 {
   "name": "oc-plus/oc-plus",
-  "description": "OC+ | Collection of fixes and improvements for OpenCart 4.1.0.3 and 4.1.0.4",
+  "description": "OC+ | Collection of fixes and improvements for OpenCart 4.1.0.4",
   "type": "project",
   "keywords": [
     "oc+",
@@ -21,7 +21,7 @@
     "php": ">=8.2",
     "ext-curl": "*",
     "scssphp/scssphp": "^2.1",
-    "twig/twig": "^3.28"
+    "twig/twig": "^3.30"
   },
   "autoload-dev": {
     "psr-4": {
