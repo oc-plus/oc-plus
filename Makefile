@@ -1,10 +1,10 @@
 # Use bash for command execution for its advanced features like arrays and functions.
 SHELL := /bin/bash
 
-# Список папок (через пробел) для очистки командой "clean"
+# List of folders (space-separated) to be cleaned with the "clean" command
 FOLDERS := storage/cache storage/logs www/image/cache
 
-# параметры базы данных
+# Database options
 DB_HOST = 127.0.0.1
 DB_NAME = opencart
 DB_USER = root
@@ -57,7 +57,7 @@ down:
 	docker compose down
 
 db-dump:
-	@echo "════════════════════════════════════════════════════════════"
+	@echo "============================================================"
 	@echo "Truncating tables in $(DB_NAME)..."
 	@for t in $(TABLES_TO_TRUNCATE); do \
     	echo "TRUNCATE TABLE $$t;" | mariadb -h $(DB_HOST) -u $(DB_USER) -p$(DB_PASS) $(DB_NAME); \
@@ -65,14 +65,14 @@ db-dump:
 	@echo "Dumping database $(DB_NAME) from $(DB_HOST)..."
 	@mariadb-dump --add-drop-table --skip-add-locks --skip-disable-keys --skip-no-autocommit -h $(DB_HOST) -u $(DB_USER) -p$(DB_PASS) $(DB_NAME) > $(DUMP_FILE)
 	@echo "Dump saved to $(DUMP_FILE)"
-	@echo "————————————————————————————————————————————————————————————"
+	@echo "------------------------------------------------------------"
 
 db-restore:
-	@echo "════════════════════════════════════════════════════════════"
+	@echo "============================================================"
 	@echo -e "   ACTION: $(COLOR_GREEN)restoring database$(COLOR_RESET)"
 	@echo -e " DATABASE: $(COLOR_PURPLE)$(DB_NAME)$(COLOR_RESET)"
 	@echo -e "     HOST: $(COLOR_PURPLE)$(DB_HOST)$(COLOR_RESET)"
-	@echo -n "—————————  Are you sure you want to restore? [y/N] "
+	@echo -n "---------  Are you sure you want to restore? [y/N] "
 	@read -t 10 ans; \
 	if [ $$? -ne 0 ]; then \
 		echo -e "\n   STATUS: $(COLOR_RED)aborted$(COLOR_RESET) (timeout reached)"; \
@@ -82,7 +82,7 @@ db-restore:
 	else \
 		echo -e "   STATUS: $(COLOR_RED)aborted$(COLOR_RESET)"; \
 	fi
-	@echo "————————————————————————————————————————————————————————————"
+	@echo "------------------------------------------------------------"
 
 .PHONY: clean
 
