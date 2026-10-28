@@ -40,8 +40,7 @@ This ensures a robust, production-ready core that remains a drop-in replacement 
 This project are strictly developed to maintain **full backward compatibility with OpenCart 4.1.0.4**.
 All included fixes and improvements have been extensively tested on live production sites.
 They are fully compatible with major frameworks and heavy-duty extensions,
-including **[Journal 3.2.10](https://themeforest.net/item/journal-advanced-opencart-theme/4260361)**
-and **[MazaEngine 1.13.10](https://themeforest.net/item/poco-advanced-opencart-theme/29855890)** (Poco Theme).  
+including **[MazaEngine](https://pocotheme.com/)** (Poco Theme) and **[Journal](https://themeforest.net/item/journal-advanced-opencart-theme/4260361)**.  
 
 **If your extension worked on clean OpenCart 4.1.0.3, or 4.1.0.4, it should work on OC+.** However, since several libraries (including jQuery) have been updated, some legacy extensions might require updates or replacements.
 
@@ -51,7 +50,7 @@ Most importantly, the `error.log` on these production environments has remained 
 ### Production Example
 For a real-world example in action, you can visit small multilanguage website: https://isoap.ge
 - Core: **OC+** from this repository.
-- Framework: Running flawlessly on Journal v.3.2.10.
+- Framework: Running flawlessly on [MazaEngine](https://pocotheme.com/).
 - Stability: Zero errors in the logs.
 
 
@@ -251,7 +250,7 @@ and **PHP-CS-Fixer** for coding standards enforcement.
 It is highly recommended to run these **Full Check** before submitting any changes.
 
 ### Prerequisites:
-- PHP 8.1 – 8.5
+- PHP 8.2 – 8.5
 - Composer
 
 ### Run the analysis
